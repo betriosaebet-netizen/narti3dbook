@@ -373,3 +373,330 @@
 
         .page-image {
             width: 100%;
+            flex-grow: 1;
+            height: auto;
+            max-height: 70%;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 4px;
+            border: 1px solid #dcd7be;
+        }
+
+        .page-number {
+            text-align: right;
+            font-size: 9px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        #page1:checked ~ .book #p1 { transform: rotateY(-180deg); z-index: 2; }
+        #page2:checked ~ .book #p2 { transform: rotateY(-180deg); z-index: 3; }
+        #page3:checked ~ .book #p3 { transform: rotateY(-180deg); z-index: 4; }
+        #page4:checked ~ .book #p4 { transform: rotateY(-180deg); z-index: 5; }
+        #page5:checked ~ .book #p5 { transform: rotateY(-180deg); z-index: 6; }
+
+        .instruction {
+            width: 95%;
+            text-align: center;
+            color: #dcdde1;
+            font-size: 10px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 8px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Kotak Kontrol Atas -->
+    <div class="top-wrapper">
+        <div class="header-row">
+            <div class="vinyl-container" onclick="toggleMusic()">
+                <div class="vinyl" id="vinylDisc">
+                    <div class="vinyl-center"></div>
+                </div>
+                <div class="vinyl-text" id="vinylText">Putar Lagu</div>
+            </div>
+
+            <!-- Mini Player Controls -->
+            <div class="player-controls">
+                <button class="nav-btn" onclick="prevSong()" title="Lagu Sebelumnya">⏮️</button>
+                <select id="songSelect" class="song-select" onchange="changeSong()">
+                    <option value="lagu1.mp3">🎵 INTRO SEMPURNA</option>
+                    <option value="lagu4.mp3">🎵 INTRO PAYUNG TEDUH</option>
+                    <option value="lagu3.mp3">🎵 INTRO SURAT CINTA UNTUK STRALA</option>
+                </select>
+                <button class="nav-btn" onclick="nextSong()" title="Lagu Selanjutnya">⏭️</button>
+            </div>
+
+            <button class="candle-btn" onclick="toggleCandle()" title="Mode Romantis">🕯️</button>
+            <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Putar</button>
+        </div>
+        <div class="love-timer" id="loveTimer">Menghitung waktu kita...</div>
+    </div>
+
+    <!-- Elemen Audio -->
+    <audio id="bgMusic" loop>
+        <source id="audioSource" src="lagu1.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <div class="book-container">
+        <!-- Checkbox Pengontrol Halaman -->
+        <input type="checkbox" id="page1">
+        <input type="checkbox" id="page2">
+        <input type="checkbox" id="page3">
+        <input type="checkbox" id="page4">
+        <input type="checkbox" id="page5">
+
+        <div class="book">
+            <!-- Halaman 5 (Sampul Belakang & Kotak Balasan) -->
+            <div class="page" id="p5" onclick="togglePage5(event)">
+                <div class="front">
+                    <div>
+                        <h2>PENUTUP DARI BUKU INI</h2>
+                        <p>"Setiap lembar cerita telah terukir indah dan aku ingin mengukirnya bersama mu dan anak-anak kita nanti, Terima kasih telah hadir di hidupku"</p>
+                        <img src="foto14.jpeg" alt="Foto 14" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+                <div class="back cover-back">
+                    <!-- Tulisan SELESAI Pas di Tengah Halaman -->
+                    <div class="finish-container">
+                        <h5 style="color: #f3d185; border: none; margin: 4px 0; font-size: 16px; letter-spacing: 1px;">SELESAI</h5>
+                        <p style="color: #f3d185; font-size: 9px; margin-top: 2px;">Album Kenangan Pribadi yang akan selalu abadi</p>
+                    </div>
+
+                    <!-- Form Balas Ke WA Betrio -->
+                    <div class="reply-box">
+                        <textarea id="replyText" class="reply-input" placeholder="Tulis balasan manis kamu buat Betrio di sini... 💬" onclick="event.stopPropagation()"></textarea>
+                        <button class="send-wa-btn" onclick="sendToWA(event)">📲 Kirim Balasan ke WhatsApp Betrio</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Halaman 4 -->
+            <div class="page" id="p4" onclick="document.getElementById('page4').checked = !document.getElementById('page4').checked;">
+                <div class="front">
+                    <div>
+                        <h2>MATAMU💗</h2>
+                        <p>"Matamu menyimpan teduh yang menenangkan, senyummu adalah alasan untuk bertahan,rasa ini hadir dan iatumbuh subur, mengalir kian mata air,Menjadikanmu rumah tempatku pulang"</p>
+                        <img src="foto2.jpeg" alt="foto 2" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+                <div class="back">
+                    <div>
+                        <h2>TENTANG MU😘</h2>
+                        <p>"Terima kasih sudah selalu jadi alasan kenapa hariku terasa lebih baik,Setiap hari bersamamu selalu terasa istimewa, bahkan dari hal-hal paling sederhana sekalipun,I'm so lucky to have you"</p>
+                        <img src="foto13.jpeg" alt="Foto 13" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+            </div>
+
+            <!-- Halaman 3 -->
+            <div class="page" id="p3" onclick="document.getElementById('page3').checked = !document.getElementById('page3').checked;">
+                <div class="front">
+                    <div>
+                        <h2>HARAPAN💝</h2>
+                        <p>"Semoga ke depannya kita berdua selalu diberi kesempatan untuk terus saling mengenal, berbagi cerita, dan menciptakan lebih banyak momen menyenangkan bersama dan selalu bersama"</p>
+                        <img src="foto15.jpeg" alt="Foto Saya 4" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+                <div class="back">
+                    <div>
+                        <h2>TENTANGMU❤️</h2>
+                        <p>"Pertemuan kita hanyalah sapaan tanpa rencana, Sebuah ketidaksengajaan yang membawa makna. Lalu waktu merajut hari dengan sederhana, Hingga rasa ini tumbuh luar biasa"</p>
+                        <img src="foto6.jpeg" alt="Foto 6" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+            </div>
+
+            <!-- Halaman 2 -->
+            <div class="page" id="p2" onclick="document.getElementById('page2').checked = !document.getElementById('page2').checked;">
+                <div class="front">
+                    <div>
+                        <h2>SEMOGA💕</h2>
+                        <p>"Semoga langkah kita selalu sejalan, dan semoga pertemuan ini tidak pernah ada akhir batas waktunya, senang bisa berjalan bersama kamu, dan semoga kebersamaan ini terus berlanjut tanpa henti, seperti api abadi❤️‍🔥"</p>
+                        <img src="foto12.jpeg" alt="Foto 12" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+                <div class="back">
+                    <div>
+                        <h2>TERIMA-KASIHKU🫰</h2>
+                        <p>Terima kasih untuk waktu dan hadirmu, karena kehadiranmu berhasil membuat hari ini terasa jauh lebih menyenangkan dari yang aku bayangkan😚😘</p>
+                        <img src="foto11.jpeg" alt="Foto 11" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+            </div>
+
+            <!-- Halaman 1 (Sampul Depan Buku) -->
+            <div class="page" id="p1" onclick="document.getElementById('page1').checked = !document.getElementById('page1').checked;">
+                <div class="front cover-front">
+                    <div class="big-love-logo">💖</div>
+                    <h1>BETRIO & NARTI</h1>
+                    <h5>KAMIS 22-10-2026💝</h5>
+                    <h5>sedikit cerita untuk mu</h5>
+                    <span style="margin-top: 30px; font-size: 11px; opacity: 0.8; font-style: normal;">(silakan dibuka dan dibaca)</span>
+                </div>
+                <div class="back">
+                    <div>
+                        <h2>AWAL DARI KISAH KITA >_<</h2>
+                        <p>Pertemuan pertama yang perlahan singgah, Membawa senyum dan cerita yang indah. Semoga waktu terus membawa kita melangkah, Menemukan arti baru dalam tiap kisah.</p>
+                        <img src="sampul1.jpeg" alt="sampul" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="instruction">web ini khusus kubuatkan untuk pacarku yang paling ku sayangi dan paling cantik dimataa kuu💝💘😘😚</div>
+
+    <!-- Skrip JavaScript -->
+    <script>
+        // 1. SCRIPT PEMUTAR MUSIK & TOMBOL PREV/NEXT
+        const music = document.getElementById('bgMusic');
+        const audioSource = document.getElementById('audioSource');
+        const songSelect = document.getElementById('songSelect');
+        const btn = document.getElementById('musicBtn');
+        const vinyl = document.getElementById('vinylDisc');
+        const vinylText = document.getElementById('vinylText');
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = "⏸️ Jeda";
+                vinyl.style.animationPlayState = "running";
+                vinylText.innerHTML = "Memutar";
+            } else {
+                music.pause();
+                btn.innerHTML = "🎵 Putar";
+                vinyl.style.animationPlayState = "paused";
+                vinylText.innerHTML = "Putar Lagu";
+            }
+        }
+
+        function changeSong() {
+            const selectedSong = songSelect.value;
+            const isPlaying = !music.paused;
+            
+            audioSource.src = selectedSong;
+            music.load();
+            
+            if (isPlaying) {
+                music.play();
+            }
+        }
+
+        function prevSong() {
+            let currentIndex = songSelect.selectedIndex;
+            if (currentIndex > 0) {
+                songSelect.selectedIndex = currentIndex - 1;
+            } else {
+                songSelect.selectedIndex = songSelect.options.length - 1;
+            }
+            changeSong();
+        }
+
+        function nextSong() {
+            let currentIndex = songSelect.selectedIndex;
+            if (currentIndex < songSelect.options.length - 1) {
+                songSelect.selectedIndex = currentIndex + 1;
+            } else {
+                songSelect.selectedIndex = 0;
+            }
+            changeSong();
+        }
+
+        // 2. SCRIPT MODE CANDLELIGHT
+        function toggleCandle() {
+            document.body.classList.toggle('candle-mode');
+        }
+
+        // 3. SCRIPT BALASAN WA
+        function togglePage5(e) {
+            if (e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'BUTTON') {
+                document.getElementById('page5').checked = !document.getElementById('page5').checked;
+            }
+        }
+
+        function sendToWA(e) {
+            e.stopPropagation();
+            const message = document.getElementById('replyText').value.trim();
+            if (!message) {
+                alert('Tulis pesan balasanmu dulu yaa ❤️');
+                return;
+            }
+            
+            const myPhoneNumber = "6281234567890"; 
+            const encodedMsg = encodeURIComponent(`Hai Betrio! Aku udah selesai baca bukunya ❤️\n\nIni pesanku: "${message}"`);
+            
+            window.open(`https://wa.me/${myPhoneNumber}?text=${encodedMsg}`, '_blank');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            music.play().then(() => {
+                btn.innerHTML = "⏸️ Jeda";
+                vinyl.style.animationPlayState = "running";
+                vinylText.innerHTML = "Memutar";
+            }).catch(() => {
+                document.body.addEventListener('click', () => {
+                    if (music.paused) {
+                        music.play();
+                        btn.innerHTML = "⏸️ Jeda";
+                        vinyl.style.animationPlayState = "running";
+                        vinylText.innerHTML = "Memutar";
+                    }
+                }, { once: true });
+            });
+        });
+
+        // 4. SCRIPT HITUNG WAKTU
+        function updateTimer() {
+            const startDate = new Date("2026-10-22T00:00:00");
+            const now = new Date();
+            
+            let diff = now - startDate;
+            if (diff < 0) diff = 0;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("loveTimer").innerHTML = 
+                `⏳Bersama: <b>${days}</b>H <b>${hours}</b>J <b>${minutes}</b>M <b>${seconds}</b>D`;
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // 5. SCRIPT ANIMASI LOVE BERJATUHAN
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            
+            const symbols = ['💖', '❤️', '💕', '✨', '🌸', '💘'];
+            heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            
+            heart.style.left = Math.random() * 95 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2.5 + 's';
+            heart.style.fontSize = Math.random() * 10 + 12 + 'px';
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5500);
+        }
+
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
