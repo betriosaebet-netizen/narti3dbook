@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku 3D Foto Sendiri</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1e272e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Georgia', serif;
+            perspective: 1600px;
+            overflow: hidden;
+        }
+
+        .book-container {
+            position: relative;
+            width: 760px;
+            height: 480px;
+            transform-style: preserve-3d;
+        }
+
+        input {
+            display: none;
+        }
+
+        .book {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .page {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            right: 0;
+            transform-origin: left;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+            padding: 25px;
+            background: #fbf9f1;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: inset 4px 0 15px rgba(0,0,0,0.06);
+            border: 1px solid #e2dec9;
+        }
+
+        .back {
+            transform: rotateY(180deg);
+        }
+
+        .left-page {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: #fbf9f1;
+            padding: 25px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #e2dec9;
+            box-shadow: inset -4px 0 15px rgba(0,0,0,0.06);
+            z-index: 1;
+        }
+
+        .cover-front {
+            background: linear-gradient(135deg, #4a1515, #8b0000);
+            color: #f3d185;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0 6px 6px 0;
+            border: 2px solid #320d0d;
+        }
+
+        .cover-sampul-front h5 {
+            font-size: 23px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f3d185;
+            padding-bottom: 10px;
+        }
+
+        .cover-front h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            border-bottom: 4px solid #f3d185;
+            padding-bottom: 10px;
+        }
+
+        .cover-back {
+            background: linear-gradient(135deg, #8b0000, #4a1515);
+            color: #f3d185;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h2 {
+            color: #3d2200;
+            margin-top: 0;
+            font-size: 18px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 4px;
+        }
+        p1 {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #9cbc00;
+            margin: 0;
+        }
+        p {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #333;
+            margin: 0;
+        }
+
+        .page-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 8px;
+            border: 1px solid #dcd7be;
+        }
+        .page-image-panjang {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 8px;
+            border: 1px solid #dcd7be;
+        }
+        .page-number {
+            text-align: right;
+            font-size: 10px;
+            color: #888;
+        }
+
+        .left-page .page-number {
+            text-align: left;
+        }
+
+        #page1:checked ~ .book #p1 { transform: rotateY(-180deg); z-index: 2; }
+        #page2:checked ~ .book #p2 { transform: rotateY(-180deg); z-index: 3; }
+        #page3:checked ~ .book #p3 { transform: rotateY(-180deg); z-index: 4; }
+        #page4:checked ~ .book #p4 { transform: rotateY(-180deg); z-index: 5; }
+        #page5:checked ~ .book #p5 { transform: rotateY(-180deg); z-index: 6; }
+
+        .instruction {
+            position: absolute;
+            bottom: -50px;
+            width: 100%;
+            text-align: center;
+            color: #dcdde1;
+            font-size: 13px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="book-container">
+        <!-- Checkbox Pengontrol Halaman -->
+        <input type="checkbox" id="page1">
+        <input type="checkbox" id="page2">
+        <input type="checkbox" id="page3">
+        <input type="checkbox" id="page4">
+        <input type="checkbox" id="page5">
+
+        <div class="book">
+            <!-- Halaman 5 (Sampul Belakang) -->
+            <div class="page" id="p5" onclick="document.getElementById('page5').checked = !document.getElementById('page5').checked;">
+                <div class="front">
+                    <div>
+                        <h2>PENUTUP DARI BUKU INI</h2>
+                        <p>"Setiap lembar cerita telah terukir indah dan aku ingin mengukirnya bersama mu dan anak-anak kita nanti, Terima kasih telah hadir di hidupku"</p>
+                        <!-- Ganti 'foto5.jpg' dengan nama file foto Anda -->
+                        <img src="foto/foto14.jpeg" alt="Foto Saya 1" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+                <div class="back cover-back">
+                    <h5 style="color: #f3d185; border: none;">SELESAI</h5>
+                    <h5>Album Kenangan Pribadi yang akan selalu abadi</h5>
+                </div>
+            </div>
+
+            <!-- Halaman 4 -->
+            <div class="page" id="p4" onclick="document.getElementById('page4').checked = !document.getElementById('page4').checked;">
+                <div class="front">
+                    <div>
+                        <h2>MATAMU💗</h2>
+                        <p>"Matamu menyimpan teduh yang menenangkan,senyummu adalah alasan untuk bertahan.aku tak pernah merencanakan rasa ini hadir,namun ia tumbuh subur, mengalir kian mahir.menjadikanmu rumah tempatku pulang,di mana lelah dan gundah perlahan hilang"</p>
+                        <!-- Ganti 'foto4a.jpg' dengan nama file foto Anda -->
+                        <img src="foto/foto2.jpg.jpeg" alt="foto" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+                <div class="back">
+                    <div>
+                        <h2>TENTANG MU😘</h2>
+                        <p>"Terima kasih sudah selalu jadi alasan kenapa hariku terasa lebih baik. Tetaplah jadi tempatku pulang dan berbagi cerita ya,Setiap hari bersamamu selalu terasa istimewa, bahkan dari hal-hal paling sederhana sekalipun. I'm so lucky to have you"</p>
+                        <!-- Ganti 'foto4b.jpg' dengan nama file foto Anda -->
+                        <img src="foto/foto13.jpeg" alt="Foto Saya 4B" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+            </div>
+
+            <!-- Halaman 3 -->
+            <div class="page" id="p3" onclick="document.getElementById('page3').checked = !document.getElementById('page3').checked;">
+                <div class="front">
+                    <div>
+                        <h2>HARAPAN💝</h2>
+                        <p>"Semoga ke depannya kita berdua selalu diberi kesempatan untuk terus saling mengenal, berbagi cerita, dan menciptakan lebih banyak momen menyenangkan bersama. Apapun yang sedang kita usahakan, semoga selalu dimudahkan dan membawa kebaikan untuk langkah kita selanjutnya."</p>
+                        <!-- Ganti 'foto3a.jpg' dengan nama file foto Anda -->
+                        <img src="foto/foto4.jpeg" alt="Foto Saya 3A" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+                <div class="back">
+                    <div>
+                        <h2>TENTANGMU❤️</h2>
+                        <p>"Pertemuan kita hanyalah sapaan tanpa rencana,Sebuah ketidaksengajaan yang membawa makna.Lalu waktu merajut hari dengan sederhana,Hingga rasa ini tumbuh luar biasa"</p>
+                        <!-- Ganti 'foto3b.jpg' dengan nama file foto Anda -->
+                        <img src="foto/foto6.jpg.jpeg" alt="Foto Saya 3B" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+            </div>
+
+            <!-- Halaman 2 -->
+            <div class="page" id="p2" onclick="document.getElementById('page2').checked = !document.getElementById('page2').checked;">
+                <div class="front">
+                    <div>
+                        <h2>SEMOGA💕</h2>
+                        <p>"Semoga langkah kita selalu sejalan, dan semoga pertemuan ini tidak pernah ada akhir batas waktunya,senang bisa berjalan bersama kamu, dan semoga kebersamaan ini terus berlanjut tanpa henti, abadi dalam setiap waktu hingga maut memisahkan."</p>
+                        <!-- Ganti 'foto2a.jpg' dengan nama file foto Anda -->
+                        <img src="foto/foto12.jpeg" alt="Foto Saya 2A" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+                <div class="back">
+                    <div>
+                        <h2>TERIMA-KASIHKU🫰</h2>
+                        <p>Terima kasih untuk waktu dan hadirmu, karena kehadiranmu berhasil membuat hari ini terasa jauh lebih menyenangkan dari yang aku bayangkan. Semoga ini jadi awal yang baik untuk kita bisa saling mengenal lebih jauh kedepannya..</p>
+                        <!-- Ganti 'foto2b.jpg' dengan nama file foto Anda -->
+                        <img src="foto/foto11.jpeg" alt="Foto Saya 2B" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+            </div>
+
+            <!-- Halaman 1 (Sampul Depan Buku) -->
+            <div class="page" id="p1" onclick="document.getElementById('page1').checked = !document.getElementById('page1').checked;">
+                <div class="front cover-front">
+                    <h1>BETRIO & NARTI</h1>
+                    <h5>KAMIS 22-10-2026💝</h5>
+                    <h5>sedikit cerita untuk mu</h5>
+                    <span style="margin-top: 40px; font-size: 11px; opacity: 0.8; font-style: normal;">(silakan dibuka dan dibaca)</span>
+                </div>
+                <div class="back">
+                    <div>
+                        <h2>AWAL DARI KISAH KITA >_<
+                        </h2>
+                        <p>Pertemuan pertama yang perlahan singgah,Membawa senyum dan cerita yang indah.Semoga waktu terus membawa kita melangkah,Menemukan arti baru dalam tiap kisah.</p>
+                        <!-- Ganti 'foto_cover_dalam.jpg' dengan nama file foto Anda -->
+                        <img src="foto/sampul1.jpeg" alt="Foto Daftar Isi" class="page-image">
+                    </div>
+                    <div class="page-number"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instruction">web ini khusus kubuatkan untuk pacarku yang paling ku sayangi dan paling cantik dimataa kuu💝💘😘😚</div>
+    </div>
+
+</body>
+</html>
