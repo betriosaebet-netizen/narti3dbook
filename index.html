@@ -7,28 +7,31 @@
     <style>
         body {
             margin: 0;
-            padding: 5px;
+            padding: 10px 5px;
             background: #1e272e;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             align-items: center;
-            height: 100vh;
-            height: 100dvh;
+            min-height: 100vh;
             font-family: 'Georgia', serif;
             perspective: 1600px;
-            overflow: hidden;
+            overflow-x: hidden;
             box-sizing: border-box;
             position: relative;
-            transition: background 0.8s ease;
+            transition: background 1.2s ease-in-out;
         }
 
-        /* Mode Sinar Lilin (Candlelight Mode) */
+        /* Mode Romantic Background */
+        body.opened-mode {
+            background: radial-gradient(circle at center, #4a121a 0%, #17070a 100%);
+        }
+
+        /* Mode Sinar Lilin */
         body.candle-mode {
-            background: radial-gradient(circle, #3d1c16 0%, #120705 100%);
+            background: radial-gradient(circle at center, #4d1e0d 0%, #0d0402 100%) !important;
         }
 
-        /* Container Animasi Partikel Love / Bintang */
+        /* Container Partikel Berjatuhan */
         .heart-particle {
             position: fixed;
             top: -20px;
@@ -40,14 +43,23 @@
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(105vh) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Partikel Sentuhan Jari */
+        .touch-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            user-select: none;
+            font-size: 16px;
+            animation: touchPop 0.8s ease-out forwards;
+        }
+
+        @keyframes touchPop {
+            0% { transform: translate(-50%, -50%) scale(0.5) rotate(0deg); opacity: 1; }
+            100% { transform: translate(-50%, -90px) scale(1.4) rotate(20deg); opacity: 0; }
         }
 
         /* Kotak Kontrol Atas */
@@ -72,7 +84,6 @@
             gap: 5px;
         }
 
-        /* Gaya Kaset Bulat / Piringan Musik */
         .vinyl-container {
             display: flex;
             align-items: center;
@@ -98,11 +109,9 @@
         }
 
         .vinyl-center {
-            width: 10px;
-            height: 10px;
-            background: #8b0000;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            border: 1px solid #f3d185;
             background-image: url('sampul1.jpeg');
             background-size: cover;
             background-position: center;
@@ -119,7 +128,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Mini Player Controls */
         .player-controls {
             display: flex;
             align-items: center;
@@ -140,11 +148,8 @@
             transition: 0.2s;
         }
 
-        .nav-btn:hover {
-            transform: scale(1.2);
-        }
+        .nav-btn:hover { transform: scale(1.2); }
 
-        /* Dropdown Pilihan Lagu */
         .song-select {
             background: rgba(0, 0, 0, 0.6);
             color: #f3d185;
@@ -163,7 +168,6 @@
             color: #f3d185;
         }
 
-        /* Tombol Musik & Lilin */
         .music-btn, .candle-btn {
             background: #8b0000;
             color: #f3d185;
@@ -183,7 +187,12 @@
             transform: scale(1.05);
         }
 
-        /* Gaya Love Timer */
+        .candle-btn.active {
+            background: #e67e22;
+            color: #fff;
+            box-shadow: 0 0 10px #f39c12;
+        }
+
         .love-timer {
             color: #f3d185;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -196,21 +205,19 @@
             text-align: center;
         }
 
-        /* Buku Full Layar Responsif */
+        /* Buku 3D */
         .book-container {
             position: relative;
             width: 92vw;
             max-width: 420px;
-            height: 62vh;
-            max-height: 520px;
+            height: 60vh;
+            max-height: 500px;
             transform-style: preserve-3d;
-            margin: auto 0;
+            margin: 15px 0;
             z-index: 10;
         }
 
-        input[type="checkbox"] {
-            display: none;
-        }
+        input[type="checkbox"] { display: none; }
 
         .book {
             position: relative;
@@ -240,7 +247,7 @@
             top: 0;
             left: 0;
             box-sizing: border-box;
-            padding: 12px;
+            padding: 10px;
             background: #fbf9f1;
             backface-visibility: hidden;
             display: flex;
@@ -250,9 +257,7 @@
             border: 1px solid #e2dec9;
         }
 
-        .back {
-            transform: rotateY(180deg);
-        }
+        .back { transform: rotateY(180deg); }
 
         .cover-front {
             background: linear-gradient(135deg, #4a1515, #8b0000);
@@ -264,7 +269,6 @@
             border: 2px solid #320d0d;
         }
 
-        /* Styling Vektor Love Emas 2D */
         .gold-heart-svg {
             width: 55px;
             height: 55px;
@@ -280,10 +284,7 @@
             padding-bottom: 8px;
         }
 
-        .cover-front h5 {
-            font-size: 13px;
-            margin: 6px 0;
-        }
+        .cover-front h5 { font-size: 13px; margin: 6px 0; }
 
         .cover-back {
             background: linear-gradient(135deg, #8b0000, #4a1515);
@@ -291,7 +292,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 12px;
+            padding: 20px 12px;
             gap: 15px;
         }
 
@@ -300,65 +301,19 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-bottom: 5px;
-        }
-
-        .reply-box {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .reply-input {
-            width: 90%;
-            height: 45px;
-            border-radius: 6px;
-            border: 1px solid #f3d185;
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            padding: 4px 6px;
-            font-size: 9px;
-            font-family: inherit;
-            resize: none;
-            outline: none;
-        }
-
-        .reply-input::placeholder {
-            color: #dcd7be;
-            opacity: 0.8;
-        }
-
-        .send-wa-btn {
-            background: #25d366;
-            color: #fff;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 9px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            transition: 0.2s;
-        }
-
-        .send-wa-btn:hover {
-            background: #1ebd56;
-            transform: scale(1.05);
         }
 
         h2 {
             color: #3d2200;
             margin-top: 0;
-            font-size: 12.5px;
+            font-size: 11px;
             border-bottom: 2px solid #d4af37;
             padding-bottom: 2px;
         }
 
         p {
-            font-size: 9px;
-            line-height: 1.2;
+            font-size: 8px;
+            line-height: 1.15;
             color: #333;
             margin: 0;
         }
@@ -367,18 +322,57 @@
             width: 100%;
             flex-grow: 1;
             height: auto;
-            max-height: 70%;
+            max-height: 52%;
             object-fit: cover;
             border-radius: 4px;
-            margin-top: 4px;
+            margin-top: 3px;
             border: 1px solid #dcd7be;
         }
 
-        .page-number {
-            text-align: right;
-            font-size: 9px;
-            color: #888;
-            margin-top: 2px;
+        .page-number { text-align: right; font-size: 9px; color: #888; margin-top: 2px; }
+
+        /* --- ANIMASI BERUANG 2D VECTOR KEJAR-KEJARAN --- */
+        .bears-stage {
+            position: relative;
+            width: 100%;
+            height: 32px;
+            background: rgba(212, 175, 55, 0.12);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 3px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+        }
+
+        .bear-svg-1 {
+            position: absolute;
+            top: 3px;
+            width: 26px;
+            height: 26px;
+            animation: bearChase1 4s infinite linear;
+        }
+
+        .bear-svg-2 {
+            position: absolute;
+            top: 3px;
+            width: 26px;
+            height: 26px;
+            animation: bearChase2 4s infinite linear;
+        }
+
+        @keyframes bearChase1 {
+            0% { left: -15%; transform: scaleX(1); }
+            48% { left: 72%; transform: scaleX(1); }
+            50% { left: 75%; transform: scaleX(-1); }
+            98% { left: -10%; transform: scaleX(-1); }
+            100% { left: -15%; transform: scaleX(1); }
+        }
+
+        @keyframes bearChase2 {
+            0% { left: -28%; transform: scaleX(1); }
+            48% { left: 58%; transform: scaleX(1); }
+            50% { left: 61%; transform: scaleX(-1); }
+            98% { left: -23%; transform: scaleX(-1); }
+            100% { left: -28%; transform: scaleX(1); }
         }
 
         #page1:checked ~ .book #p1 { transform: rotateY(-180deg); z-index: 2; }
@@ -396,6 +390,78 @@
             padding-bottom: 8px;
             z-index: 1000;
         }
+
+        /* --- SECTION BUKU TAMU / KOMENTAR --- */
+        .comments-wrapper {
+            width: 92vw;
+            max-width: 420px;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(243, 209, 133, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            box-sizing: border-box;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            z-index: 1000;
+            color: #f3d185;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .comments-title {
+            font-size: 13px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+            text-align: center;
+            border-bottom: 1px dashed rgba(243, 209, 133, 0.4);
+            padding-bottom: 6px;
+        }
+
+        .comment-form { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+
+        .comment-input, .comment-textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(243, 209, 133, 0.4);
+            border-radius: 6px;
+            color: #fff;
+            padding: 6px 8px;
+            font-size: 11px;
+            font-family: inherit;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .comment-input::placeholder, .comment-textarea::placeholder { color: rgba(243, 209, 133, 0.6); }
+        .comment-textarea { height: 50px; resize: none; }
+
+        .submit-comment-btn {
+            background: #8b0000;
+            color: #f3d185;
+            border: 1px solid #f3d185;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            align-self: flex-end;
+        }
+
+        .submit-comment-btn:hover { background: #a91d1d; transform: scale(1.03); }
+        .comments-list { display: flex; flex-direction: column; gap: 8px; max-height: 180px; overflow-y: auto; }
+
+        .comment-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-left: 3px solid #f3d185;
+            padding: 6px 8px;
+            border-radius: 4px;
+        }
+
+        .comment-header { display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 3px; font-weight: bold; }
+        .comment-author { color: #f3d185; }
+        .comment-time { color: #aaa; font-size: 8.5px; font-weight: normal; }
+        .comment-body { font-size: 10.5px; color: #eee; margin: 0; word-wrap: break-word; white-space: pre-line; }
+        .no-comments { font-size: 10px; color: #aaa; text-align: center; font-style: italic; margin: 5px 0; }
     </style>
 </head>
 <body>
@@ -421,20 +487,19 @@
                 <button class="nav-btn" onclick="nextSong()" title="Lagu Selanjutnya">⏭️</button>
             </div>
 
-            <button class="candle-btn" onclick="toggleCandle()" title="Mode Romantis">🕯️</button>
+            <button class="candle-btn" id="candleBtn" onclick="toggleCandle()" title="Mode Romantis">🕯️</button>
             <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Putar</button>
         </div>
         <div class="love-timer" id="loveTimer">Menghitung waktu kita...</div>
     </div>
 
-    <!-- Elemen Audio -->
-    <audio id="bgMusic" loop>
+    <!-- Elemen Audio (Auto-Next Song) -->
+    <audio id="bgMusic" onended="nextSong()">
         <source id="audioSource" src="lagu1.mp3" type="audio/mpeg">
         Browser Anda tidak mendukung elemen audio.
     </audio>
 
-    <div class="book-container">
-        <!-- Checkbox Pengontrol Halaman -->
+    <div class="book-container" onclick="handleFirstBookClick()">
         <input type="checkbox" id="page1">
         <input type="checkbox" id="page2">
         <input type="checkbox" id="page3">
@@ -443,7 +508,7 @@
 
         <div class="book">
             <!-- Halaman 5 (Sampul Belakang) -->
-            <div class="page" id="p5" onclick="togglePage5(event)">
+            <div class="page" id="p5" onclick="document.getElementById('page5').checked = !document.getElementById('page5').checked;">
                 <div class="front">
                     <div>
                         <h2>PENUTUP DARI BUKU INI</h2>
@@ -454,19 +519,16 @@
                 </div>
                 <div class="back cover-back">
                     <div class="finish-container">
-                        <h5 style="color: #f3d185; border: none; margin: 4px 0; font-size: 16px; letter-spacing: 1px;">SELESAI</h5>
-                        <p style="color: #f3d185; font-size: 9px; margin-top: 2px;">Album Kenangan Pribadi yang akan selalu abadi</p>
-                    </div>
-
-                    <!-- Form Balas Ke WA Betrio -->
-                    <div class="reply-box">
-                        <textarea id="replyText" class="reply-input" placeholder="Tulis balasan manis kamu buat Betrio di sini... 💬" onclick="event.stopPropagation()"></textarea>
-                        <button class="send-wa-btn" onclick="sendToWA(event)">📲 Kirim Balasan ke WhatsApp Betrio</button>
+                        <svg class="gold-heart-svg" viewBox="0 0 24 24" style="width: 45px; height: 45px; margin-bottom: 8px;">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                        <h5 style="color: #f3d185; border: none; margin: 4px 0; font-size: 18px; letter-spacing: 1.5px;">SELESAI</h5>
+                        <p style="color: #f3d185; font-size: 10px; margin-top: 6px; text-align: center;">Album Kenangan Pribadi yang akan selalu abadi ❤️</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Halaman 4 -->
+            <!-- Halaman 4 (Berisi Foto 2) -->
             <div class="page" id="p4" onclick="document.getElementById('page4').checked = !document.getElementById('page4').checked;">
                 <div class="front">
                     <div>
@@ -493,6 +555,38 @@
                         <h2>HARAPAN💝</h2>
                         <p>"Semoga ke depannya kita berdua selalu diberi kesempatan untuk terus saling mengenal, berbagi cerita, dan menciptakan lebih banyak momen menyenangkan bersama dan selalu bersama"</p>
                         <img src="foto15.jpeg" alt="Foto Saya 4" class="page-image">
+                        <div class="bears-stage">
+                            <!-- Beruang 2D Pertama -->
+                            <svg class="bear-svg-1" viewBox="0 0 64 64">
+                                <circle cx="20" cy="20" r="10" fill="#a0522d"/>
+                                <circle cx="14" cy="12" r="4" fill="#a0522d"/>
+                                <circle cx="26" cy="12" r="4" fill="#a0522d"/>
+                                <ellipse cx="20" cy="23" r="5" fill="#f4a460"/>
+                                <circle cx="17" cy="20" r="1.5" fill="#000"/>
+                                <circle cx="23" cy="20" r="1.5" fill="#000"/>
+                                <ellipse cx="20" cy="22" r="1" fill="#000"/>
+                                <ellipse cx="20" cy="42" rx="12" ry="14" fill="#a0522d"/>
+                                <circle cx="8" cy="38" r="3" fill="#a0522d"/>
+                                <circle cx="32" cy="38" r="3" fill="#a0522d"/>
+                                <circle cx="12" cy="54" r="3.5" fill="#a0522d"/>
+                                <circle cx="28" cy="54" r="3.5" fill="#a0522d"/>
+                            </svg>
+                            <!-- Beruang 2D Kedua -->
+                            <svg class="bear-svg-2" viewBox="0 0 64 64">
+                                <circle cx="20" cy="20" r="10" fill="#cd853f"/>
+                                <circle cx="14" cy="12" r="4" fill="#cd853f"/>
+                                <circle cx="26" cy="12" r="4" fill="#cd853f"/>
+                                <ellipse cx="20" cy="23" r="5" fill="#deb887"/>
+                                <circle cx="17" cy="20" r="1.5" fill="#000"/>
+                                <circle cx="23" cy="20" r="1.5" fill="#000"/>
+                                <ellipse cx="20" cy="22" r="1" fill="#000"/>
+                                <ellipse cx="20" cy="42" rx="12" ry="14" fill="#cd853f"/>
+                                <circle cx="8" cy="38" r="3" fill="#cd853f"/>
+                                <circle cx="32" cy="38" r="3" fill="#cd853f"/>
+                                <circle cx="12" cy="54" r="3.5" fill="#cd853f"/>
+                                <circle cx="28" cy="54" r="3.5" fill="#cd853f"/>
+                            </svg>
+                        </div>
                     </div>
                     <div class="page-number"></div>
                 </div>
@@ -506,7 +600,7 @@
                 </div>
             </div>
 
-            <!-- Halaman 2 -->
+            <!-- Halaman 2 (Berisi Foto 11) -->
             <div class="page" id="p2" onclick="document.getElementById('page2').checked = !document.getElementById('page2').checked;">
                 <div class="front">
                     <div>
@@ -521,19 +615,51 @@
                         <h2>TERIMA-KASIHKU🫰</h2>
                         <p>Terima kasih untuk waktu dan hadirmu, karena kehadiranmu berhasil membuat hari ini terasa jauh lebih menyenangkan dari yang aku bayangkan😚😘</p>
                         <img src="foto11.jpeg" alt="Foto 11" class="page-image">
+
+                        <!-- ANIMASI BERUANG 2D KEJAR-KEJARAN -->
+                        <div class="bears-stage">
+                            <!-- Beruang 2D Pertama -->
+                            <svg class="bear-svg-1" viewBox="0 0 64 64">
+                                <circle cx="20" cy="20" r="10" fill="#a0522d"/>
+                                <circle cx="14" cy="12" r="4" fill="#a0522d"/>
+                                <circle cx="26" cy="12" r="4" fill="#a0522d"/>
+                                <ellipse cx="20" cy="23" r="5" fill="#f4a460"/>
+                                <circle cx="17" cy="20" r="1.5" fill="#000"/>
+                                <circle cx="23" cy="20" r="1.5" fill="#000"/>
+                                <ellipse cx="20" cy="22" r="1" fill="#000"/>
+                                <ellipse cx="20" cy="42" rx="12" ry="14" fill="#a0522d"/>
+                                <circle cx="8" cy="38" r="3" fill="#a0522d"/>
+                                <circle cx="32" cy="38" r="3" fill="#a0522d"/>
+                                <circle cx="12" cy="54" r="3.5" fill="#a0522d"/>
+                                <circle cx="28" cy="54" r="3.5" fill="#a0522d"/>
+                            </svg>
+                            <!-- Beruang 2D Kedua -->
+                            <svg class="bear-svg-2" viewBox="0 0 64 64">
+                                <circle cx="20" cy="20" r="10" fill="#cd853f"/>
+                                <circle cx="14" cy="12" r="4" fill="#cd853f"/>
+                                <circle cx="26" cy="12" r="4" fill="#cd853f"/>
+                                <ellipse cx="20" cy="23" r="5" fill="#deb887"/>
+                                <circle cx="17" cy="20" r="1.5" fill="#000"/>
+                                <circle cx="23" cy="20" r="1.5" fill="#000"/>
+                                <ellipse cx="20" cy="22" r="1" fill="#000"/>
+                                <ellipse cx="20" cy="42" rx="12" ry="14" fill="#cd853f"/>
+                                <circle cx="8" cy="38" r="3" fill="#cd853f"/>
+                                <circle cx="32" cy="38" r="3" fill="#cd853f"/>
+                                <circle cx="12" cy="54" r="3.5" fill="#cd853f"/>
+                                <circle cx="28" cy="54" r="3.5" fill="#cd853f"/>
+                            </svg>
+                        </div>
                     </div>
                     <div class="page-number"></div>
                 </div>
             </div>
 
-            <!-- Halaman 1 (Sampul Depan Buku) -->
+            <!-- Halaman 1 (Sampul Depan) -->
             <div class="page" id="p1" onclick="document.getElementById('page1').checked = !document.getElementById('page1').checked;">
                 <div class="front cover-front">
-                    <!-- Logo Vektor Love Emas Flat (2D) -->
                     <svg class="gold-heart-svg" viewBox="0 0 24 24">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
-
                     <h1>BETRIO & NARTI</h1>
                     <h5>KAMIS 22-10-2026💝</h5>
                     <h5>sedikit cerita untuk mu</h5>
@@ -553,9 +679,43 @@
 
     <div class="instruction">web ini khusus kubuatkan untuk pacarku yang paling ku sayangi dan paling cantik dimataa kuu💝💘😘😚</div>
 
-    <!-- Skrip JavaScript -->
+    <!-- SECTION BUKU TAMU / KOMENTAR -->
+    <div class="comments-wrapper">
+        <div class="comments-title">💬 Buku Tamu & Komentar</div>
+        <form class="comment-form" onsubmit="addComment(event)">
+            <input type="text" id="commentAuthor" class="comment-input" placeholder="From (Nama Pembuat Pesan)..." required>
+            <textarea id="commentContent" class="comment-textarea" placeholder="Isi Pesan / Ucapan Manis..." required></textarea>
+            <button type="submit" class="submit-comment-btn">✨ Kirim Komentar</button>
+        </form>
+
+        <div class="comments-list" id="commentsList"></div>
+    </div>
+
+    <!-- Script JavaScript -->
     <script>
-        // 1. SCRIPT PEMUTAR MUSIK & TOMBOL PREV/NEXT
+        // 1. PERUBAHAN BACKGROUND HANYA AWAL KLIK BUKU
+        let isBookOpenedFirstTime = false;
+        function handleFirstBookClick() {
+            if (!isBookOpenedFirstTime) {
+                isBookOpenedFirstTime = true;
+                document.body.classList.add('opened-mode');
+            }
+        }
+
+        // 2. SCRIPT PARTIKEL SENTUHAN JARI
+        window.addEventListener('pointerdown', (e) => {
+            const particle = document.createElement('div');
+            particle.classList.add('touch-particle');
+            const symbols = ['💖', '✨', '❤️', '🌸', '💕'];
+            particle.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            document.body.appendChild(particle);
+
+            setTimeout(() => { particle.remove(); }, 800);
+        });
+
+        // 3. SCRIPT PEMUTAR MUSIK & AUTO-NEXT
         const music = document.getElementById('bgMusic');
         const audioSource = document.getElementById('audioSource');
         const songSelect = document.getElementById('songSelect');
@@ -580,63 +740,115 @@
         function changeSong() {
             const selectedSong = songSelect.value;
             const isPlaying = !music.paused;
-            
             audioSource.src = selectedSong;
             music.load();
-            
-            if (isPlaying) {
-                music.play();
-            }
+            if (isPlaying) { music.play(); }
         }
 
         function prevSong() {
             let currentIndex = songSelect.selectedIndex;
-            if (currentIndex > 0) {
-                songSelect.selectedIndex = currentIndex - 1;
-            } else {
-                songSelect.selectedIndex = songSelect.options.length - 1;
-            }
+            songSelect.selectedIndex = currentIndex > 0 ? currentIndex - 1 : songSelect.options.length - 1;
             changeSong();
         }
 
         function nextSong() {
             let currentIndex = songSelect.selectedIndex;
-            if (currentIndex < songSelect.options.length - 1) {
-                songSelect.selectedIndex = currentIndex + 1;
-            } else {
-                songSelect.selectedIndex = 0;
-            }
+            songSelect.selectedIndex = currentIndex < songSelect.options.length - 1 ? currentIndex + 1 : 0;
             changeSong();
         }
 
-        // 2. SCRIPT MODE CANDLELIGHT
+        // 4. SCRIPT MODE CANDLELIGHT
         function toggleCandle() {
             document.body.classList.toggle('candle-mode');
+            const candleBtn = document.getElementById('candleBtn');
+            candleBtn.classList.toggle('active', document.body.classList.contains('candle-mode'));
         }
 
-        // 3. SCRIPT BALASAN WA
-        function togglePage5(e) {
-            if (e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'BUTTON') {
-                document.getElementById('page5').checked = !document.getElementById('page5').checked;
-            }
+        // 5. SCRIPT HITUNG WAKTU
+        function updateTimer() {
+            const startDate = new Date("2026-10-22T00:00:00");
+            const now = new Date();
+            let diff = now - startDate;
+            if (diff < 0) diff = 0;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("loveTimer").innerHTML = 
+                `⏳Bersama: <b>${days}</b>H <b>${hours}</b>J <b>${minutes}</b>M <b>${seconds}</b>D`;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // 6. ANIMASI HEART PARTICLE FALLING
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            const symbols = ['💖', '❤️', '💕', '✨', '🌸', '💘'];
+            heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            heart.style.left = Math.random() * 95 + 'vw';
+            heart.style.animationDuration = Math.random() * 4 + 2 + 's';
+            heart.style.fontSize = Math.random() * 13 + 15 + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5500);
+        }
+        setInterval(createHeart, 400);
+
+        // 7. SCRIPT BUKU TAMU / KOMENTAR
+        function getComments() {
+            const saved = localStorage.getItem('betrio_narti_comments');
+            return saved ? JSON.parse(saved) : [
+                { author: "Betrio", content: "Terima kasih sudah membaca buku sederhana ini yaa sayang ❤️", time: "22/10/2026" }
+            ];
         }
 
-        function sendToWA(e) {
-            e.stopPropagation();
-            const message = document.getElementById('replyText').value.trim();
-            if (!message) {
-                alert('Tulis pesan balasanmu dulu yaa ❤️');
+        function renderComments() {
+            const comments = getComments();
+            const listEl = document.getElementById('commentsList');
+            if (comments.length === 0) {
+                listEl.innerHTML = '<div class="no-comments">Belum ada komentar. Jadilah yang pertama memberikan ucapan! 💕</div>';
                 return;
             }
-            
-            // ⚠️ GANTI DENGAN NOMOR WHATSAPP ASLI MILIKMU (AWALAN 62)
-            const myPhoneNumber = "6281351585958"; 
-            const encodedMsg = encodeURIComponent(`Hai Betrio! Aku udah selesai baca bukunya ❤️\n\nIni pesanku: "${message}"`);
-            
-            window.open(`https://wa.me/${myPhoneNumber}?text=${encodedMsg}`, '_blank');
+            listEl.innerHTML = comments.map(c => `
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <span class="comment-author">👤 ${escapeHtml(c.author)}</span>
+                        <span class="comment-time">${c.time}</span>
+                    </div>
+                    <p class="comment-body">${escapeHtml(c.content)}</p>
+                </div>
+            `).join('');
+        }
+
+        function addComment(e) {
+            e.preventDefault();
+            const authorInput = document.getElementById('commentAuthor');
+            const contentInput = document.getElementById('commentContent');
+            const author = authorInput.value.trim();
+            const content = contentInput.value.trim();
+
+            if (!author || !content) return;
+
+            const now = new Date();
+            const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+
+            const comments = getComments();
+            comments.unshift({ author: author, content: content, time: timeStr });
+            localStorage.setItem('betrio_narti_comments', JSON.stringify(comments));
+
+            authorInput.value = '';
+            contentInput.value = '';
+            renderComments();
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            renderComments();
             music.play().then(() => {
                 btn.innerHTML = "⏸️ Jeda";
                 vinyl.style.animationPlayState = "running";
@@ -652,47 +864,6 @@
                 }, { once: true });
             });
         });
-
-        // 4. SCRIPT HITUNG WAKTU
-        function updateTimer() {
-            const startDate = new Date("2026-10-22T00:00:00");
-            const now = new Date();
-            
-            let diff = now - startDate;
-            if (diff < 0) diff = 0;
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / 1000 / 60) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
-
-            document.getElementById("loveTimer").innerHTML = 
-                `⏳Bersama: <b>${days}</b>H <b>${hours}</b>J <b>${minutes}</b>M <b>${seconds}</b>D`;
-        }
-
-        setInterval(updateTimer, 1000);
-        updateTimer();
-
-        // 5. SCRIPT ANIMASI LOVE BERJATUHAN
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-particle');
-            
-            const symbols = ['💖', '❤️', '💕', '✨', '🌸', '💘'];
-            heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-            
-            heart.style.left = Math.random() * 95 + 'vw';
-            heart.style.animationDuration = Math.random() * 4 + 2 + 's';
-            heart.style.fontSize = Math.random() * 13 + 15 + 'px';
-            
-            document.body.appendChild(heart);
-            
-            setTimeout(() => {
-                heart.remove();
-            }, 5500);
-        }
-
-        setInterval(createHeart, 400);
     </script>
 </body>
 </html>
