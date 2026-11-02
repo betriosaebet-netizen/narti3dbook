@@ -20,6 +20,12 @@
             overflow: hidden;
             box-sizing: border-box;
             position: relative;
+            transition: background 0.8s ease;
+        }
+
+        /* Mode Sinar Lilin (Candlelight Mode) */
+        body.candle-mode {
+            background: radial-gradient(circle, #3d1c16 0%, #120705 100%);
         }
 
         /* Container Animasi Partikel Love / Bintang */
@@ -157,12 +163,12 @@
             color: #f3d185;
         }
 
-        /* Tombol Musik */
-        .music-btn {
+        /* Tombol Musik & Lilin */
+        .music-btn, .candle-btn {
             background: #8b0000;
             color: #f3d185;
             border: 2px solid #f3d185;
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 20px;
             cursor: pointer;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -172,7 +178,7 @@
             transition: 0.3s;
         }
 
-        .music-btn:hover {
+        .music-btn:hover, .candle-btn:hover {
             background: #a91d1d;
             transform: scale(1.05);
         }
@@ -202,7 +208,7 @@
             z-index: 10;
         }
 
-        input {
+        input[type="checkbox"] {
             display: none;
         }
 
@@ -258,12 +264,19 @@
             border: 2px solid #320d0d;
         }
 
-        /* Styling Logo Cupid Memanah Hati */
-        .cupid-logo {
-            width: 110px;
-            height: 80px;
-            margin-bottom: 12px;
-            filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
+        .big-love-logo {
+            font-size: 50px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.4));
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+            60% { transform: scale(1); }
         }
 
         .cover-front h1 {
@@ -281,9 +294,57 @@
         .cover-back {
             background: linear-gradient(135deg, #8b0000, #4a1515);
             color: #f3d185;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             text-align: center;
+            padding: 12px 8px;
+        }
+
+        /* Style Form Balasan WA */
+        .reply-box {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            margin-top: 5px;
+        }
+
+        .reply-input {
+            width: 90%;
+            height: 45px;
+            border-radius: 6px;
+            border: 1px solid #f3d185;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 4px 6px;
+            font-size: 9px;
+            font-family: inherit;
+            resize: none;
+            outline: none;
+        }
+
+        .reply-input::placeholder {
+            color: #dcd7be;
+            opacity: 0.7;
+        }
+
+        .send-wa-btn {
+            background: #25d366;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            transition: 0.2s;
+        }
+
+        .send-wa-btn:hover {
+            background: #1ebd56;
+            transform: scale(1.05);
         }
 
         h2 {
@@ -359,6 +420,7 @@
                 <button class="nav-btn" onclick="nextSong()" title="Lagu Selanjutnya">⏭️</button>
             </div>
 
+            <button class="candle-btn" onclick="toggleCandle()" title="Mode Romantis">🕯️</button>
             <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Putar</button>
         </div>
         <div class="love-timer" id="loveTimer">Menghitung waktu kita...</div>
@@ -379,8 +441,8 @@
         <input type="checkbox" id="page5">
 
         <div class="book">
-            <!-- Halaman 5 (Sampul Belakang) -->
-            <div class="page" id="p5" onclick="document.getElementById('page5').checked = !document.getElementById('page5').checked;">
+            <!-- Halaman 5 (Sampul Belakang & Kotak Balasan) -->
+            <div class="page" id="p5" onclick="togglePage5(event)">
                 <div class="front">
                     <div>
                         <h2>PENUTUP DARI BUKU INI</h2>
@@ -390,8 +452,16 @@
                     <div class="page-number"></div>
                 </div>
                 <div class="back cover-back">
-                    <h5 style="color: #f3d185; border: none;">SELESAI</h5>
-                    <h5>Album Kenangan Pribadi yang akan selalu abadi</h5>
+                    <div>
+                        <h5 style="color: #f3d185; border: none; margin: 2px 0;">SELESAI</h5>
+                        <p style="color: #f3d185; font-size: 8.5px;">Album Kenangan Pribadi yang akan selalu abadi</p>
+                    </div>
+
+                    <!-- Form Balas Ke WA Betrio -->
+                    <div class="reply-box">
+                        <textarea id="replyText" class="reply-input" placeholder="Tulis balasan manis kamu buat Betrio di sini... 💬" onclick="event.stopPropagation()"></textarea>
+                        <button class="send-wa-btn" onclick="sendToWA(event)">📲 Kirim Balasan ke WhatsApp Betrio</button>
+                    </div>
                 </div>
             </div>
 
@@ -458,37 +528,7 @@
             <!-- Halaman 1 (Sampul Depan Buku) -->
             <div class="page" id="p1" onclick="document.getElementById('page1').checked = !document.getElementById('page1').checked;">
                 <div class="front cover-front">
-                    
-                    <!-- SVG Logo Malaikat Memanah Hati (Cupid) -->
-                    <svg class="cupid-logo" viewBox="0 0 200 150" fill="#f3d185">
-                        <!-- Hati Berpanah di Sebelah Kanan -->
-                        <g transform="translate(130, 20)">
-                            <path d="M 25 10 C 20 0, 0 0, 0 20 C 0 35, 25 50, 25 60 C 25 50, 50 35, 50 20 C 50 0, 30 0, 25 10 Z" />
-                            <!-- Panah Menembus Hati -->
-                            <line x1="-15" y1="45" x2="60" y2="10" stroke="#f3d185" stroke-width="4" stroke-linecap="round"/>
-                            <polygon points="60,10 50,12 55,20" />
-                            <path d="M -15 45 L -25 40 M -15 45 L -20 52" stroke="#f3d185" stroke-width="3"/>
-                        </g>
-
-                        <!-- Malaikat / Cupid Memanah di Sebelah Kiri -->
-                        <!-- Kepala -->
-                        <circle cx="50" cy="45" r="14" />
-                        <!-- Sayap -->
-                        <path d="M 40 45 C 20 30, 10 50, 25 65 C 10 65, 15 80, 35 75 Z" />
-                        <!-- Tubuh & Kaki -->
-                        <path d="M 45 58 C 30 70, 25 90, 15 100 L 25 105 C 38 92, 45 80, 55 70 Z" />
-                        <path d="M 40 75 C 30 85, 20 105, 10 115 L 20 118 C 32 105, 42 90, 48 78 Z" />
-                        <!-- Tangan Memegang Busur -->
-                        <path d="M 52 55 L 75 48 L 90 52" stroke="#f3d185" stroke-width="4" fill="none" stroke-linecap="round"/>
-                        <path d="M 50 58 L 70 65 L 85 55" stroke="#f3d185" stroke-width="4" fill="none" stroke-linecap="round"/>
-                        <!-- Busur & Tali -->
-                        <path d="M 85 25 C 100 45, 100 65, 85 85" stroke="#f3d185" stroke-width="4" fill="none" stroke-linecap="round"/>
-                        <line x1="85" y1="25" x2="85" y2="85" stroke="#f3d185" stroke-width="1.5" stroke-dasharray="2,2"/>
-                        <!-- Anak Panah yang Ditarik -->
-                        <line x1="68" y1="55" x2="115" y2="40" stroke="#f3d185" stroke-width="3" stroke-linecap="round"/>
-                        <polygon points="115,40 107,38 110,45" />
-                    </svg>
-
+                    <div class="big-love-logo">💖</div>
                     <h1>BETRIO & NARTI</h1>
                     <h5>KAMIS 22-10-2026💝</h5>
                     <h5>sedikit cerita untuk mu</h5>
@@ -510,7 +550,7 @@
 
     <!-- Skrip JavaScript -->
     <script>
-        // --- 1. SCRIPT PEMUTAR MUSIK & TOMBOL PREV/NEXT ---
+        // 1. SCRIPT PEMUTAR MUSIK & TOMBOL PREV/NEXT
         const music = document.getElementById('bgMusic');
         const audioSource = document.getElementById('audioSource');
         const songSelect = document.getElementById('songSelect');
@@ -564,6 +604,34 @@
             changeSong();
         }
 
+        // 2. SCRIPT MODE CANDLELIGHT
+        function toggleCandle() {
+            document.body.classList.toggle('candle-mode');
+        }
+
+        // 3. SCRIPT BALASAN WA
+        function togglePage5(e) {
+            // Hindari membalik halaman jika user mengeklik textarea atau tombol kirim
+            if (e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'BUTTON') {
+                document.getElementById('page5').checked = !document.getElementById('page5').checked;
+            }
+        }
+
+        function sendToWA(e) {
+            e.stopPropagation();
+            const message = document.getElementById('replyText').value.trim();
+            if (!message) {
+                alert('Tulis pesan balasanmu dulu yaa ❤️');
+                return;
+            }
+            
+            // GANTI NOMOR DI BAWAH DENGAN NOMOR WA KAMU (Gunakan awalan 62)
+            const myPhoneNumber = "6281351585958"; 
+            const encodedMsg = encodeURIComponent(`Hai Betrio! Aku udah selesai baca bukunya ❤️\n\nIni pesanku: "${message}"`);
+            
+            window.open(`https://wa.me/${myPhoneNumber}?text=${encodedMsg}`, '_blank');
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             music.play().then(() => {
                 btn.innerHTML = "⏸️ Jeda";
@@ -581,7 +649,7 @@
             });
         });
 
-        // --- 2. SCRIPT HITUNG WAKTU ---
+        // 4. SCRIPT HITUNG WAKTU
         function updateTimer() {
             const startDate = new Date("2026-10-22T00:00:00");
             const now = new Date();
@@ -601,7 +669,7 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // --- 3. SCRIPT ANIMASI LOVE & BINTANG BERJATUHAN ---
+        // 5. SCRIPT ANIMASI LOVE BERJATUHAN
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart-particle');
