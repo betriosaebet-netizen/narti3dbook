@@ -19,6 +19,28 @@
             perspective: 1600px;
             overflow: hidden;
             box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Container Animasi Partikel Love / Bintang (No. 2) */
+        .heart-particle {
+            position: fixed;
+            top: -20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 9999;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* Kotak Kontrol Atas */
@@ -90,6 +112,31 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        /* Mini Player Controls (No. 4) */
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 20px;
+            border: 1px solid rgba(243, 209, 133, 0.3);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: #f3d185;
+            cursor: pointer;
+            font-size: 11px;
+            padding: 2px 4px;
+            transition: 0.2s;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.2);
+        }
+
         /* Dropdown Pilihan Lagu */
         .song-select {
             background: rgba(0, 0, 0, 0.6);
@@ -101,7 +148,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             outline: none;
             cursor: pointer;
-            max-width: 130px;
+            max-width: 110px;
         }
 
         .song-select option {
@@ -151,6 +198,7 @@
             max-height: 520px;
             transform-style: preserve-3d;
             margin: auto 0;
+            z-index: 10;
         }
 
         input {
@@ -275,6 +323,7 @@
             font-size: 10px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding-bottom: 8px;
+            z-index: 1000;
         }
     </style>
 </head>
@@ -290,14 +339,18 @@
                 <div class="vinyl-text" id="vinylText">Putar Lagu</div>
             </div>
 
-            <!-- Pilihan Lagu (Dropdown) -->
-            <select id="songSelect" class="song-select" onchange="changeSong()">
-                <option value="lagu1.mp3">🎵 Intro sempurna</option>
-                <option value="lagu4.mp3">🎵 Intro payung payung teduh</option>
-                <option value="lagu3.mp3">🎵 Intro surat cinta untuk starla</option>
-            </select>
+            <!-- Mini Player Controls (No. 4) -->
+            <div class="player-controls">
+                <button class="nav-btn" onclick="prevSong()" title="Lagu Sebelumnya">⏮️</button>
+                <select id="songSelect" class="song-select" onchange="changeSong()">
+                    <option value="lagu1.mp3">🎵 INTRO SEMPURNA</option>
+                    <option value="lagu4.mp3">🎵 INTRO PAYUNG TEDUH</option>
+                    <option value="lagu3.mp3">🎵 INTRO SURAT CINTA UNTUK STRALA</option>
+                </select>
+                <button class="nav-btn" onclick="nextSong()" title="Lagu Selanjutnya">⏭️</button>
+            </div>
 
-            <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Putar Musik</button>
+            <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Putar</button>
         </div>
         <div class="love-timer" id="loveTimer">Menghitung waktu kita...</div>
     </div>
@@ -417,6 +470,7 @@
 
     <!-- Skrip JavaScript -->
     <script>
+        // --- 1. SCRIPT PEMUTAR MUSIK & TOMBOL PREV/NEXT (No. 4) ---
         const music = document.getElementById('bgMusic');
         const audioSource = document.getElementById('audioSource');
         const songSelect = document.getElementById('songSelect');
@@ -450,6 +504,26 @@
             }
         }
 
+        function prevSong() {
+            let currentIndex = songSelect.selectedIndex;
+            if (currentIndex > 0) {
+                songSelect.selectedIndex = currentIndex - 1;
+            } else {
+                songSelect.selectedIndex = songSelect.options.length - 1;
+            }
+            changeSong();
+        }
+
+        function nextSong() {
+            let currentIndex = songSelect.selectedIndex;
+            if (currentIndex < songSelect.options.length - 1) {
+                songSelect.selectedIndex = currentIndex + 1;
+            } else {
+                songSelect.selectedIndex = 0;
+            }
+            changeSong();
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             music.play().then(() => {
                 btn.innerHTML = "⏸️ Jeda";
@@ -467,6 +541,7 @@
             });
         });
 
+        // --- 2. SCRIPT HITUNG WAKTU ---
         function updateTimer() {
             const startDate = new Date("2026-10-22T00:00:00");
             const now = new Date();
@@ -485,6 +560,29 @@
 
         setInterval(updateTimer, 1000);
         updateTimer();
+
+        // --- 3. SCRIPT ANIMASI LOVE & BINTANG BERJATUHAN (No. 2) ---
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            
+            // Pilihan karakter animasi
+            const symbols = ['💖', '❤️', '💕', '✨', '🌸', '💘'];
+            heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            
+            // Ukuran dan posisi acak
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's'; // 2s - 5s
+            heart.style.fontSize = Math.random() * 12 + 10 + 'px'; // 10px - 22px
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 400);
     </script>
 </body>
 </html>
