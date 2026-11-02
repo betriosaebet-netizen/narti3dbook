@@ -264,19 +264,13 @@
             border: 2px solid #320d0d;
         }
 
-        .big-love-logo {
-            font-size: 50px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.4));
-            animation: heartbeat 1.5s infinite;
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.15); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.1); }
-            60% { transform: scale(1); }
+        /* Styling Vektor Love Emas 2D */
+        .gold-heart-svg {
+            width: 55px;
+            height: 55px;
+            margin-bottom: 12px;
+            fill: #f3d185;
+            filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4));
         }
 
         .cover-front h1 {
@@ -294,23 +288,21 @@
         .cover-back {
             background: linear-gradient(135deg, #8b0000, #4a1515);
             color: #f3d185;
-            justify-content: center; /* Membuat semua item di tengah secara vertikal */
-            align-items: center;     /* Membuat semua item di tengah secara horisontal */
+            justify-content: center;
+            align-items: center;
             text-align: center;
             padding: 12px;
             gap: 15px;
         }
 
-        /* Container Teks Selesai di Tengah */
         .finish-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
-        /* Style Form Balasan WA */
         .reply-box {
             width: 100%;
             display: flex;
@@ -324,7 +316,7 @@
             height: 45px;
             border-radius: 6px;
             border: 1px solid #f3d185;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             color: #fff;
             padding: 4px 6px;
             font-size: 9px;
@@ -335,14 +327,14 @@
 
         .reply-input::placeholder {
             color: #dcd7be;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
         .send-wa-btn {
             background: #25d366;
             color: #fff;
             border: none;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 12px;
             font-size: 9px;
             font-weight: bold;
@@ -450,7 +442,7 @@
         <input type="checkbox" id="page5">
 
         <div class="book">
-            <!-- Halaman 5 (Sampul Belakang & Kotak Balasan) -->
+            <!-- Halaman 5 (Sampul Belakang) -->
             <div class="page" id="p5" onclick="togglePage5(event)">
                 <div class="front">
                     <div>
@@ -461,7 +453,6 @@
                     <div class="page-number"></div>
                 </div>
                 <div class="back cover-back">
-                    <!-- Tulisan SELESAI Pas di Tengah Halaman -->
                     <div class="finish-container">
                         <h5 style="color: #f3d185; border: none; margin: 4px 0; font-size: 16px; letter-spacing: 1px;">SELESAI</h5>
                         <p style="color: #f3d185; font-size: 9px; margin-top: 2px;">Album Kenangan Pribadi yang akan selalu abadi</p>
@@ -538,7 +529,11 @@
             <!-- Halaman 1 (Sampul Depan Buku) -->
             <div class="page" id="p1" onclick="document.getElementById('page1').checked = !document.getElementById('page1').checked;">
                 <div class="front cover-front">
-                    <div class="big-love-logo">💖</div>
+                    <!-- Logo Vektor Love Emas Flat (2D) -->
+                    <svg class="gold-heart-svg" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+
                     <h1>BETRIO & NARTI</h1>
                     <h5>KAMIS 22-10-2026💝</h5>
                     <h5>sedikit cerita untuk mu</h5>
@@ -547,7 +542,7 @@
                 <div class="back">
                     <div>
                         <h2>AWAL DARI KISAH KITA >_<</h2>
-                        <p>Pertemuan pertama yang perlahan singgah, Membawa senyum dan cerita yang indah. Semoga waktu terus membawa kita melangkah, Menemukan arti baru dalam tiap kisah.</p>
+                        <p>Pertemuan first yang perlahan singgah, Membawa senyum dan cerita yang indah. Semoga waktu terus membawa kita melangkah, Menemukan arti baru dalam tiap kisah.</p>
                         <img src="sampul1.jpeg" alt="sampul" class="page-image">
                     </div>
                     <div class="page-number"></div>
@@ -634,7 +629,8 @@
                 return;
             }
             
-            const myPhoneNumber = "6281234567890"; 
+            // ⚠️ GANTI DENGAN NOMOR WHATSAPP ASLI MILIKMU (AWALAN 62)
+            const myPhoneNumber = "6281351585958"; 
             const encodedMsg = encodeURIComponent(`Hai Betrio! Aku udah selesai baca bukunya ❤️\n\nIni pesanku: "${message}"`);
             
             window.open(`https://wa.me/${myPhoneNumber}?text=${encodedMsg}`, '_blank');
@@ -686,8 +682,8 @@
             heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
             
             heart.style.left = Math.random() * 95 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2.5 + 's';
-            heart.style.fontSize = Math.random() * 10 + 12 + 'px';
+            heart.style.animationDuration = Math.random() * 4 + 2 + 's';
+            heart.style.fontSize = Math.random() * 13 + 15 + 'px';
             
             document.body.appendChild(heart);
             
