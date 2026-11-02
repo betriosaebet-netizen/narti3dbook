@@ -71,23 +71,6 @@
             transform: rotateY(180deg);
         }
 
-        .left-page {
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: #fbf9f1;
-            padding: 25px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid #e2dec9;
-            box-shadow: inset -4px 0 15px rgba(0,0,0,0.06);
-            z-index: 1;
-        }
-
         .cover-front {
             background: linear-gradient(135deg, #4a1515, #8b0000);
             color: #f3d185;
@@ -98,18 +81,16 @@
             border: 2px solid #320d0d;
         }
 
-        .cover-sampul-front h5 {
-            font-size: 23px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #f3d185;
-            padding-bottom: 10px;
-        }
-
         .cover-front h1 {
             font-size: 28px;
             margin-bottom: 10px;
             border-bottom: 4px solid #f3d185;
             padding-bottom: 10px;
+        }
+
+        .cover-front h5 {
+            font-size: 18px;
+            margin: 10px 0;
         }
 
         .cover-back {
@@ -127,43 +108,27 @@
             border-bottom: 2px solid #d4af37;
             padding-bottom: 4px;
         }
-        p1 {
-            font-size: 12px;
-            line-height: 1.5;
-            color: #9cbc00;
-            margin: 0;
-        }
+
         p {
-            font-size: 12px;
-            line-height: 1.5;
+            font-size: 11px;
+            line-height: 1.4;
             color: #333;
             margin: 0;
         }
 
         .page-image {
             width: 100%;
-            height: 300px;
+            height: 270px;
             object-fit: cover;
             border-radius: 4px;
-            margin-top: 8px;
+            margin-top: 6px;
             border: 1px solid #dcd7be;
         }
-        .page-image-panjang {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-top: 8px;
-            border: 1px solid #dcd7be;
-        }
+
         .page-number {
             text-align: right;
             font-size: 10px;
             color: #888;
-        }
-
-        .left-page .page-number {
-            text-align: left;
         }
 
         #page1:checked ~ .book #p1 { transform: rotateY(-180deg); z-index: 2; }
@@ -200,8 +165,7 @@
                     <div>
                         <h2>PENUTUP DARI BUKU INI</h2>
                         <p>"Setiap lembar cerita telah terukir indah dan aku ingin mengukirnya bersama mu dan anak-anak kita nanti, Terima kasih telah hadir di hidupku"</p>
-                        <!-- Ganti 'foto5.jpg' dengan nama file foto Anda -->
-                        <img src="./foto14.jpeg" alt="Foto 14" class="page-image">
+                        <img src="https://raw.githubusercontent.com/betriosaebet-netizen/narti3dbook/main/foto14.jpeg" alt="Foto 14" class="page-image">
                     </div>
                     <div class="page-number"></div>
                 </div>
@@ -216,18 +180,16 @@
                 <div class="front">
                     <div>
                         <h2>MATAMU💗</h2>
-                        <p>"Matamu menyimpan teduh yang menenangkan,senyummu adalah alasan untuk bertahan.aku tak pernah merencanakan rasa ini hadir,namun ia tumbuh subur, mengalir kian mahir.menjadikanmu rumah tempatku pulang,di mana lelah dan gundah perlahan hilang"</p>
-                        <!-- Ganti 'foto4a.jpg' dengan nama file foto Anda -->
-                        <img src="./foto2.jpeg" alt="foto 2" class="page-image">
+                        <p>"Matamu menyimpan teduh yang menenangkan, senyummu adalah alasan untuk bertahan. Aku tak pernah merencanakan rasa ini hadir, namun ia tumbuh subur, mengalir kian mahir. Menjadikanmu rumah tempatku pulang, di mana lelah dan gundah perlahan hilang"</p>
+                        <img src="https://raw.githubusercontent.com/betriosaebet-netizen/narti3dbook/main/foto2.jpeg" alt="foto 2" class="page-image">
                     </div>
                     <div class="page-number"></div>
                 </div>
                 <div class="back">
                     <div>
                         <h2>TENTANG MU😘</h2>
-                        <p>"Terima kasih sudah selalu jadi alasan kenapa hariku terasa lebih baik. Tetaplah jadi tempatku pulang dan berbagi cerita ya,Setiap hari bersamamu selalu terasa istimewa, bahkan dari hal-hal paling sederhana sekalipun. I'm so lucky to have you"</p>
-                        <!-- Ganti 'foto4b.jpg' dengan nama file foto Anda -->
-                        <img src="./foto13.jpeg" alt="Foto 13" class="page-image">
+                        <p>"Terima kasih sudah selalu jadi alasan kenapa hariku terasa lebih baik. Tetaplah jadi tempatku pulang dan berbagi cerita ya, Setiap hari bersamamu selalu terasa istimewa, bahkan dari hal-hal paling sederhana sekalipun. I'm so lucky to have you"</p>
+                        <img src="https://raw.githubusercontent.com/betriosaebet-netizen/narti3dbook/main/foto13.jpeg" alt="Foto 13" class="page-image">
                     </div>
                     <div class="page-number"></div>
                 </div>
@@ -239,17 +201,15 @@
                     <div>
                         <h2>HARAPAN💝</h2>
                         <p>"Semoga ke depannya kita berdua selalu diberi kesempatan untuk terus saling mengenal, berbagi cerita, dan menciptakan lebih banyak momen menyenangkan bersama. Apapun yang sedang kita usahakan, semoga selalu dimudahkan dan membawa kebaikan untuk langkah kita selanjutnya."</p>
-                        <!-- Ganti 'foto3a.jpg' dengan nama file foto Anda -->
-                        <img src="./foto4.jpeg" alt="Foto Saya 4" class="page-image">
+                        <img src="https://raw.githubusercontent.com/betriosaebet-netizen/narti3dbook/main/foto4.jpeg" alt="Foto Saya 4" class="page-image">
                     </div>
                     <div class="page-number"></div>
                 </div>
                 <div class="back">
                     <div>
                         <h2>TENTANGMU❤️</h2>
-                        <p>"Pertemuan kita hanyalah sapaan tanpa rencana,Sebuah ketidaksengajaan yang membawa makna.Lalu waktu merajut hari dengan sederhana,Hingga rasa ini tumbuh luar biasa"</p>
-                        <!-- Ganti 'foto3b.jpg' dengan nama file foto Anda -->
-                        <img src="./foto6.jpeg" alt="Foto 6" class="page-image">
+                        <p>"Pertemuan kita hanyalah sapaan tanpa rencana, Sebuah ketidaksengajaan yang membawa makna. Lalu waktu merajut hari dengan sederhana, Hingga rasa ini tumbuh luar biasa"</p>
+                        <img src="https://raw.githubusercontent.com/betriosaebet-netizen/narti3dbook/main/foto6.jpeg" alt="Foto 6" class="page-image">
                     </div>
                     <div class="page-number"></div>
                 </div>
@@ -260,9 +220,8 @@
                 <div class="front">
                     <div>
                         <h2>SEMOGA💕</h2>
-                        <p>"Semoga langkah kita selalu sejalan, dan semoga pertemuan ini tidak pernah ada akhir batas waktunya,senang bisa berjalan bersama kamu, dan semoga kebersamaan ini terus berlanjut tanpa henti, abadi dalam setiap waktu hingga maut memisahkan."</p>
-                        <!-- Ganti 'foto2a.jpg' dengan nama file foto Anda -->
-                        <img src="./foto12.jpeg" alt="Foto 12" class="page-image">
+                        <p>"Semoga langkah kita selalu sejalan, dan semoga pertemuan ini tidak pernah ada akhir batas waktunya, senang bisa berjalan bersama kamu, dan semoga kebersamaan ini terus berlanjut tanpa henti, abadi dalam setiap waktu hingga maut memisahkan."</p>
+                        <img src="https://raw.githubusercontent.com/betriosaebet-netizen/narti3dbook/main/foto12.jpeg" alt="Foto 12" class="page-image">
                     </div>
                     <div class="page-number"></div>
                 </div>
@@ -270,8 +229,7 @@
                     <div>
                         <h2>TERIMA-KASIHKU🫰</h2>
                         <p>Terima kasih untuk waktu dan hadirmu, karena kehadiranmu berhasil membuat hari ini terasa jauh lebih menyenangkan dari yang aku bayangkan. Semoga ini jadi awal yang baik untuk kita bisa saling mengenal lebih jauh kedepannya..</p>
-                        <!-- Ganti 'foto2b.jpg' dengan nama file foto Anda -->
-                        <img src="./foto11.jpeg" alt="Foto 11" class="page-image">
+                        <img src="https://raw.githubusercontent.com/betriosaebet-netizen/narti3dbook/main/foto11.jpeg" alt="Foto 11" class="page-image">
                     </div>
                     <div class="page-number"></div>
                 </div>
@@ -287,11 +245,9 @@
                 </div>
                 <div class="back">
                     <div>
-                        <h2>AWAL DARI KISAH KITA >_<
-                        </h2>
-                        <p>Pertemuan pertama yang perlahan singgah,Membawa senyum dan cerita yang indah.Semoga waktu terus membawa kita melangkah,Menemukan arti baru dalam tiap kisah.</p>
-                        <!-- Ganti 'foto_cover_dalam.jpg' dengan nama file foto Anda -->
-                        <img src="./sampul1.jpeg" alt="sampul" class="page-image">
+                        <h2>AWAL DARI KISAH KITA >_<</h2>
+                        <p>Pertemuan pertama yang perlahan singgah, Membawa senyum dan cerita yang indah. Semoga waktu terus membawa kita melangkah, Menemukan arti baru dalam tiap kisah.</p>
+                        <img src="https://raw.githubusercontent.com/betriosaebet-netizen/narti3dbook/main/sampul1.jpeg" alt="sampul" class="page-image">
                     </div>
                     <div class="page-number"></div>
                 </div>
