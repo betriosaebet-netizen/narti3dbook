@@ -191,6 +191,60 @@
             transform: scale(1.05);
         }
 
+        /* Gaya Animasi Kaset Bulat / Piringan Musik di Pojok Kiri Atas */
+        .vinyl-container {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .vinyl {
+            width: 45px;
+            height: 45px;
+            background: #111;
+            border-radius: 50%;
+            border: 3px solid #f3d185;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: spin 4s linear infinite;
+            animation-play-state: paused; /* Berhenti saat musik mati */
+        }
+
+        /* Gambar di tengah kaset bulat */
+        .vinyl-center {
+            width: 18px;
+            height: 18px;
+            background: #8b0000;
+            border-radius: 50%;
+            border: 1px solid #f3d185;
+            background-image: url('sampul1.jpeg'); /* Bisa diganti foto lain */
+            background-size: cover;
+            background-position: center;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .vinyl-text {
+            color: #f3d185;
+            font-size: 11px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(243, 209, 133, 0.3);
+        }
+
         /* Otomatis Menyesuaikan (Scale) untuk Layar HP / Tablet */
         @media screen and (max-width: 800px) {
             body {
@@ -221,11 +275,19 @@
 </head>
 <body>
 
-    <!-- Tombol Musik -->
+    <!-- Animasi Kaset Bulat di Pojok Kiri Atas -->
+    <div class="vinyl-container" onclick="toggleMusic()">
+        <div class="vinyl" id="vinylDisc">
+            <div class="vinyl-center"></div>
+        </div>
+        <div class="vinyl-text" id="vinylText">Putar Lagu 🎵</div>
+    </div>
+
+    <!-- Tombol Musik di Pojok Kanan Atas -->
     <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Putar Musik</button>
 
-    <!-- Elemen Audio (Autoplay diaktifkan) -->
-    <audio id="bgMusic" loop autoplay>
+    <!-- Elemen Audio -->
+    <audio id="bgMusic" loop>
         <source src="lagu.mp3" type="audio/mpeg">
         Browser Anda tidak mendukung elemen audio.
     </audio>
@@ -319,7 +381,7 @@
             </div>
 
             <!-- Halaman 1 (Sampul Depan Buku) -->
-            <div class="page" id="p1" onclick="document.getElementById('page1').checked = !document.getElementById('page1'.checked;">
+            <div class="page" id="p1" onclick="document.getElementById('page1').checked = !document.getElementById('page1').checked;">
                 <div class="front cover-front">
                     <h1>BETRIO & NARTI</h1>
                     <h5>KAMIS 22-10-2026💝</h5>
@@ -340,31 +402,40 @@
 
     <div class="instruction">web ini khusus kubuatkan untuk pacarku yang paling ku sayangi dan paling cantik dimataa kuu💝💘😘😚</div>
 
-    <!-- Skrip JavaScript (Musik Otomatis & Hitung Mundur) -->
+    <!-- Skrip JavaScript (Animasi Kaset, Musik, & Hitung Mundur) -->
     <script>
         const music = document.getElementById('bgMusic');
         const btn = document.getElementById('musicBtn');
+        const vinyl = document.getElementById('vinylDisc');
+        const vinylText = document.getElementById('vinylText');
 
         function toggleMusic() {
             if (music.paused) {
                 music.play();
                 btn.innerHTML = "⏸️ Jeda Musik";
+                vinyl.style.animationPlayState = "running";
+                vinylText.innerHTML = "Memutar 🎶";
             } else {
                 music.pause();
                 btn.innerHTML = "🎵 Putar Musik";
+                vinyl.style.animationPlayState = "paused";
+                vinylText.innerHTML = "Putar Lagu 🎵";
             }
         }
 
-        // Coba langsung putar musik saat halaman dimuat
+        // Coba putar musik otomatis saat halaman dimuat
         window.addEventListener('DOMContentLoaded', () => {
             music.play().then(() => {
                 btn.innerHTML = "⏸️ Jeda Musik";
+                vinyl.style.animationPlayState = "running";
+                vinylText.innerHTML = "Memutar 🎶";
             }).catch(() => {
-                // Jika diblokir browser, musik akan otomatis menyala saat layar disentuh pertama kali
                 document.body.addEventListener('click', () => {
                     if (music.paused) {
                         music.play();
                         btn.innerHTML = "⏸️ Jeda Musik";
+                        vinyl.style.animationPlayState = "running";
+                        vinylText.innerHTML = "Memutar 🎶";
                     }
                 }, { once: true });
             });
