@@ -227,8 +227,8 @@ input[type=checkbox] {
     width: 100%;
     height: 100%;
     padding: 11px;
-    background: #fffafd;
-    border: 1px solid #f3c6d4;
+    background: #fcfeff;
+    border: 1px solid #ececec;
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
@@ -242,8 +242,8 @@ input[type=checkbox] {
 }
 
 .cover-front {
-    background: linear-gradient(145deg,#e66c91,#ffb5c8,#f7d6df);
-    color: white;
+    background: linear-gradient(145deg,#c75074,#1f1719,#532a35);
+    color: rgb(173, 152, 152);
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -253,7 +253,7 @@ input[type=checkbox] {
 
 .cover-front h1 {
     font-size: 20px;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid rgb(32, 22, 22);
     padding-bottom: 8px;
 }
 
@@ -270,8 +270,8 @@ input[type=checkbox] {
 }
 
 .cover-back {
-    background: linear-gradient(145deg,#d94f7d,#ffadc5);
-    color: white;
+    background: linear-gradient(145deg,#310111,#58001a);
+    color: rgb(62, 49, 49);
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -285,7 +285,7 @@ input[type=checkbox] {
 }
 
 h2 {
-    color: #b44970;
+    color: #670026;
     font-size: 11px;
     border-bottom: 2px solid #e8b76f;
     padding-bottom: 4px;
@@ -404,7 +404,7 @@ p {
     margin: 12px 0;
     padding: 14px;
     background: #ffffffd9;
-    border: 1px solid #f2b7ca;
+    border: 1px solid #431423;
     border-radius: 15px;
     box-shadow: 0 5px 18px #db729522;
 }
@@ -692,6 +692,16 @@ p {
         gap: 5px;
     }
 }
+    /* CSS animasi lainnya */
+
+    /* Tambahkan kode perbaikan beruang di sini */
+    @media (max-width: 768px) {
+        .bear {
+            opacity: 1 !important;
+            filter: none !important;
+        }
+    }
+
 </style>
 </head>
 
@@ -779,7 +789,7 @@ onclick="document.getElementById('page5').checked = !document.getElementById('pa
             </svg>
 
             <h5 style="font-size:20px;color:white;margin:5px">
-                SELESAI ❤️
+                SELESAI 
             </h5>
 
             <p style="color:white;text-align:center;font-size:10px">
@@ -807,26 +817,35 @@ onclick="document.getElementById('page4').checked = !document.getElementById('pa
     <div class="front">
         <div>
             <h2>MATAMU 💗</h2>
-            <p>
-            "Matamu menyimpan teduh yang menenangkan,
-            senyummu adalah alasan untuk bertahan.
-            Rasa ini tumbuh subur, menjadikanmu rumah
-            tempatku pulang."
-            </p>
+            <p>"Matamu menyimpan teduh yang menenangkan, senyummu adalah alasan untuk bertahan. Rasa ini tumbuh subur, menjadikanmu rumah tempatku pulang."</p>
             <img src="foto2.jpeg" class="page-image" alt="Foto 2">
+            <p style="font-size:10px;color:rgb(179, 8, 99);margin:5px">
+            UNTUK MU
+            </p
+            >
+            <P>Aku bukan penyair,
+tapi sejak ada kamu,
+semua takutku punya alasan
+untuk jadi berani.Kalau dunia tanya
+kenapa aku masih di sini,
+jawabnya sederhana:
+karena rumahku ya kamu.Gak usah takut sendirian,
+selama aku masih bisa berdiri,
+aku berdiri di samping kamu.</P>
         </div>
         <div class="page-number">8</div>
     </div>
 
     <div class="back">
         <div>
-            <h2>TENTANG KAMU 😘</h2>
+            <h2>TERIMA KASIH😘</h2>
             <p>
             "Terima kasih sudah selalu jadi alasan kenapa
             hariku terasa lebih baik. Setiap hari bersamamu
             selalu terasa istimewa. I'm so lucky to have you."
             </p>
             <img src="foto13.jpeg" class="page-image" alt="Foto 13">
+            <p>Aku tidak berharap hubungan kita selalu berjalan sempurna. Aku hanya ingin kita tetap saling memahami, jujur, dan menjaga satu sama lain dalam keadaan apa pun. Mungkin akan ada banyak perubahan seiring waktu, tetapi semoga keinginan untuk tetap bersama tidak ikut berubah. Terima kasih sudah menjadi bagian dari hidupku.</p>
         </div>
         <div class="page-number">9</div>
     </div>
@@ -892,7 +911,7 @@ onclick="document.getElementById('page2').checked = !document.getElementById('pa
 
     <div class="back">
         <div>
-            <h2>TERIMA KASIHKU 🫰</h2>
+            <h2>HADIRMU💗</h2>
             <p>
             "Terima kasih untuk waktu dan hadirmu,
             karena kehadiranmu berhasil membuat hari ini
@@ -923,7 +942,7 @@ onclick="document.getElementById('page1').checked = !document.getElementById('pa
 
         <h1>BETRIO & NARTI</h1>
 
-        <h5>KAMIS 22-10-2026 💝</h5>
+        <h5>kamis 22-10-2026 💝</h5>
 
         <h5>Sedikit cerita untukmu</h5>
 
@@ -1120,9 +1139,8 @@ window.addEventListener('pointerdown', function(e) {
     setTimeout(() => particle.remove(),800);
 
 });
-
 /* ===================================
-   3. MUSIK
+   PEMUTAR MUSIK OTOMATIS BERGANTIAN
 =================================== */
 
 const music = document.getElementById('bgMusic');
@@ -1134,72 +1152,53 @@ const vinyl = document.getElementById('vinylDisc');
 const vinylText = document.getElementById('vinylText');
 
 function updateMusicUI() {
-
     if (music.paused) {
-
         musicBtn.innerHTML = '🎵 Putar';
         vinyl.style.animationPlayState = 'paused';
         vinylText.innerHTML = 'Putar Lagu';
-
     } else {
-
         musicBtn.innerHTML = '⏸️ Jeda';
         vinyl.style.animationPlayState = 'running';
         vinylText.innerHTML = 'Memutar';
-
     }
-
 }
 
 function toggleMusic() {
-
     if (music.paused) {
-
         music.play()
-        .then(updateMusicUI)
-        .catch(() => alert('Periksa file musik atau coba tekan Putar lagi.'));
-
+            .then(updateMusicUI)
+            .catch(() => alert('Musik gagal diputar.'));
     } else {
-
         music.pause();
         updateMusicUI();
-
     }
-
 }
 
 function changeSong() {
-
     audioSource.src = songSelect.value;
-
     music.load();
 
     music.play()
-    .then(updateMusicUI)
-    .catch(updateMusicUI);
-
+        .then(updateMusicUI)
+        .catch(updateMusicUI);
 }
 
 function prevSong() {
-
     let index = songSelect.selectedIndex;
 
     songSelect.selectedIndex =
         index > 0 ? index - 1 : songSelect.options.length - 1;
 
     changeSong();
-
 }
 
 function nextSong() {
-
     let index = songSelect.selectedIndex;
 
     songSelect.selectedIndex =
         index < songSelect.options.length - 1 ? index + 1 : 0;
 
     changeSong();
-
 }
 
 songSelect.addEventListener('change', changeSong);
@@ -1297,10 +1296,11 @@ const galleryPhotos = [
     'foto2.jpeg',
     'foto6.jpeg',
     'foto11.jpeg',
-    'foto12.jpeg',
+    'foto22.jpeg',
     'foto13.jpeg',
-    'foto14.jpeg',
-    'foto15.jpeg'
+    'foto4.jpeg',
+    'foto15.jpeg',
+    'foto21.jpeg'
 ];
 
 let currentGalleryIndex = 0;
