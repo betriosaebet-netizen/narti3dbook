@@ -67,7 +67,7 @@ body.candle-mode { background: radial-gradient(circle,#8c4550,#27101b) !importan
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
     z-index: 20;
 }
 .header-row {
@@ -75,8 +75,14 @@ body.candle-mode { background: radial-gradient(circle,#8c4550,#27101b) !importan
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 7px;
+    gap: 6px;
+}
+.action-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 .vinyl-container, .player-controls, .love-timer {
     background: rgba(255,255,255,.8);
@@ -113,11 +119,11 @@ body.candle-mode { background: radial-gradient(circle,#8c4550,#27101b) !importan
     background: white;
 }
 .music-btn, .candle-btn, .gallery-btn {
-    background: linear-gradient(135deg,#ff8fab,#d85b87);
+    background: linear-gradient(135deg,#64041c,#d85b87);
     color: white;
     border: 1px solid white;
     border-radius: 20px;
-    padding: 7px 11px;
+    padding: 6px 14px;
     font-size: 10px;
     font-weight: bold;
     cursor: pointer;
@@ -126,6 +132,22 @@ body.candle-mode { background: radial-gradient(circle,#8c4550,#27101b) !importan
 }
 .music-btn:hover, .candle-btn:hover, .gallery-btn:hover { transform: scale(1.07); }
 .candle-btn.active { background: #a64d36; box-shadow: 0 0 15px orange; }
+
+/* STYLE TULISAN ALBUM LAGU DI ATAS WAKTU */
+.album-timer-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    width: 100%;
+}
+.album-text-label {
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--rose);
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+}
 .love-timer { font-family: Arial,sans-serif; font-size: 11px; justify-content: center; flex-wrap: wrap; }
 
 /* BOOK 3D */
@@ -169,7 +191,7 @@ input[type=checkbox] { display: none; }
 }
 .back { transform: rotateY(180deg); }
 .cover-front {
-    background: linear-gradient(145deg,#c75074,#1f1719,#532a35);
+    background: linear-gradient(145deg,#250606,#340918,#3c0c0c);
     color: rgb(173, 152, 152);
     justify-content: center;
     align-items: center;
@@ -335,6 +357,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
 
 <!-- HEADER / MUSIC -->
 <div class="top-wrapper">
+    <!-- Baris Kontrol Atas -->
     <div class="header-row">
         <div class="vinyl-container" onclick="toggleMusic()">
             <div class="vinyl" id="vinylDisc"></div>
@@ -344,23 +367,34 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
         <div class="player-controls">
             <button class="nav-btn" onclick="prevSong()">⏮️</button>
             <select id="songSelect" class="song-select">
-                <option value="lagu1.mp3">🎵 INTRO SEMPURNA</option>
-                <option value="lagu4.mp3">🎵 INTRO PAYUNG TEDUH</option>
-                <option value="lagu3.mp3">🎵 INTRO SURAT CINTA</option>
+                <option value="lagu say you wont.mp3">🎵Say you won't Let Go</option>
+                <option value="lagu a yer ago.mp3">🎵A Year Ago</option>
+                <option value="laguperpect.mp3">🎵Perpect</option>
+                <option value="lagu5.mp3">🎵Photografh</option>
+                <option value="lagu1.mp3">🎵Intro Sempurna</option>
+                <option value="lagu4.mp3">🎵Intro Payung Teduh</option>
+                <option value="lagu3.mp3">🎵Intro Surat Cinta untuk Starla</option>
             </select>
             <button class="nav-btn" onclick="nextSong()">⏭️</button>
         </div>
-
-        <button class="candle-btn" id="candleBtn" onclick="toggleCandle()">🕯️</button>
-        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Putar</button>
     </div>
 
-    <div class="love-timer" id="loveTimer">Menghitung waktu kita...</div>
+    <!-- Baris Tombol Aksi (Jeda/Putar & Lilin) - Dipastikan Sejajar -->
+    <div class="action-row">
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Putar</button>
+        <button class="candle-btn" id="candleBtn" onclick="toggleCandle()">🕯️ Lilin</button>
+    </div>
+
+    <!-- TULISAN ALBUM LAGU DI ATAS WAKTU BERSAMA -->
+    <div class="album-timer-wrapper">
+        <div class="album-text-label">ALBUM LAGU 🎵</div>
+        <div class="love-timer" id="loveTimer">Menghitung waktu kita...</div>
+    </div>
 </div>
 
 <!-- AUDIO -->
 <audio id="bgMusic" loop>
-    <source id="audioSource" src="lagu1.mp3" type="audio/mpeg">
+    <source id="audioSource" src="lagu say you wont.mp3" type="audio/mpeg">
 </audio>
 
 <!-- BUKU 3D -->
@@ -390,9 +424,9 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
                     <h5 style="font-size:20px;color:white;margin:5px">SELESAI</h5>
-                    <p style="color:white;text-align:center;font-size:10px">Album kenangan pribadi yang akan selalu abadi.</p>
+                    <p  style="color:white;margin:10px">Album kenangan pribadi yang akan selalu abadi.</p>
                     <p style="color:white;margin:10px">Masih ada satu kejutan untukmu...</p>
-                    <button class="final-btn" onclick="event.stopPropagation();openSurprise()">🎆 BUKA KEJUTAN TERAKHIR 🎁</button>
+                    <button class="final-btn" onclick="event.stopPropagation();openSurprise()">BUKA INI</button>
                 </div>
             </div>
         </div>
@@ -453,6 +487,10 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                     <h2>SEMOGA 💕</h2>
                     <p>"Semoga langkah kita selalu sejalan dan semoga pertemuan ini tidak pernah ada akhir batas waktunya. Semoga kebersamaan ini terus berlanjut tanpa henti, seperti api abadi."</p>
                     <img src="foto12.jpeg" class="page-image" alt="Foto 12">
+                     <div class="bears-stage">
+                        <span class="bear one">🙀</span>
+                        <span class="bear two">😽</span>
+                    </div>
                 </div>
                 <div class="page-number">4</div>
             </div>
@@ -477,10 +515,10 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                 <svg class="gold-heart-svg" viewBox="0 0 24 24">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
-                <h1>BETRIO & NARTI</h1>
-                <h5>kamis 22-10-2026 💝</h5>
-                <h5>Sedikit cerita untukmu</h5>
-                <span style="margin-top:30px;font-size:10px">(Silakan dibuka dan dibaca)</span>
+                <h1>B & N</h1>
+                <h5>kamis 22-10-2026</h5>
+                <h5>kisah dan cerita kita bermula</h5>
+                <span style="margin-top:30px;font-size:10px">click untuk membuka!!</span>
             </div>
 
             <div class="back">
@@ -488,6 +526,10 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                     <h2>AWAL DARI KISAH KITA &gt;_&lt;</h2>
                     <p>"Pertemuan pertama yang perlahan singgah, membawa senyum dan cerita yang indah. Semoga waktu terus membawa kita melangkah, menemukan arti baru dalam tiap kisah."</p>
                     <img src="sampul1.jpeg" class="page-image" alt="Sampul">
+                    <div class="bears-stage">
+                        <span class="bear one">🐼</span>
+                        <span class="bear two">🐨</span>
+                    </div>
                 </div>
                 <div class="page-number">3</div>
             </div>
@@ -504,7 +546,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
 <!-- TOMBOL GALERI -->
 <div class="section-btn">
     <button class="gallery-btn" onclick="document.getElementById('gallerySection').scrollIntoView({behavior:'smooth'})">
-        📸 BUKA GALERI KENANGAN
+        GALERI FOTO
     </button>
 </div>
 
@@ -529,7 +571,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
 
 <!-- BUKU TAMU PUBLIK -->
 <div class="comments-wrapper">
-    <div class="comments-title">💬 Buku Tamu & Komentar Publik</div>
+    <div class="comments-title">TINGGAL PESAN DAN KESANMU</div>
     <form class="comment-form" onsubmit="addPublicComment(event)">
         <input type="text" id="commentAuthor" class="comment-input" placeholder="From (Nama)..." maxlength="50" required>
         <textarea id="commentContent" class="comment-textarea" placeholder="Isi Pesan / Ucapan..." maxlength="500" required></textarea>
@@ -566,7 +608,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
 <!-- JAVASCRIPT -->
 <script>
 /* ===================================
-   GANTI BAGIAN INI DENGAN FIREBASE CONFIG MILIK ANDA
+   FIREBASE CONFIG
 =================================== */
 const firebaseConfig = {
   apiKey: "AIzaSyD8OoINB5TtqURvFskK6IvLVoH4EcziAYI",
@@ -591,7 +633,6 @@ function handleFirstBookClick() {
     if (!isBookOpenedFirstTime) {
         isBookOpenedFirstTime = true;
         document.body.classList.add('opened-mode');
-        // Otomatis coba putar musik saat buku pertama kali diklik (interaksi pertama)
         if (music.paused) {
             music.play().then(updateMusicUI).catch(() => {});
         }
