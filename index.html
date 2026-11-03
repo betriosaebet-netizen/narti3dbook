@@ -75,14 +75,8 @@ body.candle-mode { background: radial-gradient(circle,#8c4550,#27101b) !importan
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 6px;
-}
-.action-row {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
 }
 .vinyl-container, .player-controls, .love-timer {
     background: rgba(255,255,255,.8);
@@ -110,7 +104,7 @@ body.candle-mode { background: radial-gradient(circle,#8c4550,#27101b) !importan
 .player-controls { gap: 4px; }
 .nav-btn { background: transparent; border: none; color: var(--rose); cursor: pointer; }
 .song-select {
-    max-width: 115px;
+    max-width: 110px;
     font-size: 9px;
     border: 1px solid var(--pink);
     border-radius: 15px;
@@ -119,11 +113,11 @@ body.candle-mode { background: radial-gradient(circle,#8c4550,#27101b) !importan
     background: white;
 }
 .music-btn, .candle-btn, .gallery-btn {
-    background: linear-gradient(135deg,#64041c,#d85b87);
+    background: linear-gradient(135deg,#ff8fab,#d85b87);
     color: white;
     border: 1px solid white;
     border-radius: 20px;
-    padding: 6px 14px;
+    padding: 6px 11px;
     font-size: 10px;
     font-weight: bold;
     cursor: pointer;
@@ -191,7 +185,7 @@ input[type=checkbox] { display: none; }
 }
 .back { transform: rotateY(180deg); }
 .cover-front {
-    background: linear-gradient(145deg,#250606,#340918,#3c0c0c);
+    background: linear-gradient(145deg,#541d2e,#1f1719,#2c0b14);
     color: rgb(173, 152, 152);
     justify-content: center;
     align-items: center;
@@ -199,7 +193,7 @@ input[type=checkbox] { display: none; }
     border: 3px solid #f5d6a0;
     border-radius: 0 7px 7px 0;
 }
-.cover-front h1 { font-size: 20px; border-bottom: 2px solid rgb(32, 22, 22); padding-bottom: 8px; }
+.cover-front h1 { font-size: 20px; border-bottom: 2px solid rgb(218, 195, 207); padding-bottom: 10px; }
 .cover-front h5 { font-size: 12px; margin: 5px; }
 .gold-heart-svg { width: 50px; height: 50px; fill: #fff1b8; filter: drop-shadow(0 3px 4px #a23c60); }
 .cover-back { background: linear-gradient(145deg,#310111,#58001a); color: rgb(62, 49, 49); text-align: center; justify-content: center; align-items: center; gap: 12px; }
@@ -357,7 +351,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
 
 <!-- HEADER / MUSIC -->
 <div class="top-wrapper">
-    <!-- Baris Kontrol Atas -->
+    <!-- Baris Kontrol Atas (Piringan Hitam, Pilih Lagu, Tombol Putar/Jeda, dan Lilin sejajar) -->
     <div class="header-row">
         <div class="vinyl-container" onclick="toggleMusic()">
             <div class="vinyl" id="vinylDisc"></div>
@@ -367,9 +361,9 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
         <div class="player-controls">
             <button class="nav-btn" onclick="prevSong()">⏮️</button>
             <select id="songSelect" class="song-select">
-                <option value="lagu say you wont.mp3">🎵Say you won't Let Go</option>
-                <option value="lagu a yer ago.mp3">🎵A Year Ago</option>
-                <option value="laguperpect.mp3">🎵Perpect</option>
+                <option value="lagu11.mp3">🎵Say you won't Let Go</option>
+                <option value="lagu12.mp3">🎵A Year Ago</option>
+                <option value="lagu13.mp3">🎵Perpect</option>
                 <option value="lagu5.mp3">🎵Photografh</option>
                 <option value="lagu1.mp3">🎵Intro Sempurna</option>
                 <option value="lagu4.mp3">🎵Intro Payung Teduh</option>
@@ -377,24 +371,21 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
             </select>
             <button class="nav-btn" onclick="nextSong()">⏭️</button>
         </div>
-    </div>
 
-    <!-- Baris Tombol Aksi (Jeda/Putar & Lilin) - Dipastikan Sejajar -->
-    <div class="action-row">
         <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Putar</button>
-        <button class="candle-btn" id="candleBtn" onclick="toggleCandle()">🕯️ Lilin</button>
+        <button class="candle-btn" id="candleBtn" onclick="toggleCandle()">🕯️</button>
     </div>
 
     <!-- TULISAN ALBUM LAGU DI ATAS WAKTU BERSAMA -->
     <div class="album-timer-wrapper">
-        <div class="album-text-label">ALBUM LAGU 🎵</div>
+        <div class="album-text-label">🎵 GANTI LAGU CLICK DIATAS🎵</div>
         <div class="love-timer" id="loveTimer">Menghitung waktu kita...</div>
     </div>
 </div>
 
 <!-- AUDIO -->
 <audio id="bgMusic" loop>
-    <source id="audioSource" src="lagu say you wont.mp3" type="audio/mpeg">
+    <source id="audioSource" src="lagu11.mp3" type="audio/mpeg">
 </audio>
 
 <!-- BUKU 3D -->
@@ -413,7 +404,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                     <h2>PENUTUP DARI BUKU INI 💗</h2>
                     <p>"Setiap lembar cerita telah terukir indah dan aku ingin mengukirnya bersama mu dan anak-anak kita nanti. Terima kasih telah hadir di hidupku."</p>
                     <img src="foto14.jpeg" class="page-image" alt="Kenangan 14">
-                    <p>Di Ujung Hari, Tentang Kamu Matahari perlahan tenggelam di balik awan kelabu, Membawa serta lelah yang seharian menggebu. Namun di ujung hari yang tenang dan sunyi ini, Hanya satu nama yang terus singgah di dalam hati. Kamu, adalah rumah tempat pulang segala rindu, Alasan senyumku terukir tanpa ragu. Terima kasih telah menemani setiap langkah dan waktu, Membuat duniaku terasa jauh lebih utuh dan padu. Sekarang, pejamkan matamu dan istirahatkan lelahmu, Biarkan lelap memeluk hangat seluruh mimpimu. Aku di sini, mendoakanmu dalam sunyi malam, Menyayangimu, hari ini, esok, dan selamanya dalam damai yang tenteram</p>
+                    <p>"Di Ujung Hari, Tentang Kamu Matahari perlahan tenggelam di balik awan kelabu, Membawa serta lelah yang seharian menggebu. Namun di ujung hari yang tenang dan sunyi ini, Hanya satu nama yang terus singgah di dalam hati. Kamu, adalah rumah tempat pulang segala rindu, Alasan senyumku terukir tanpa ragu. Terima kasih telah menemani setiap langkah dan waktu, Membuat duniaku terasa jauh lebih utuh dan padu. Sekarang, pejamkan matamu dan istirahatkan lelahmu, Biarkan lelap memeluk hangat seluruh mimpimu. Aku di sini, mendoakanmu dalam sunyi malam, Menyayangimu, hari ini, esok, dan selamanya dalam damai yang tenteram"</p>
                 </div>
                 <div class="page-number">10</div>
             </div>
@@ -424,9 +415,9 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                     </svg>
                     <h5 style="font-size:20px;color:white;margin:5px">SELESAI</h5>
-                    <p  style="color:white;margin:10px">Album kenangan pribadi yang akan selalu abadi.</p>
+                    <p style="color:white;margin:10px">Album kenangan pribadi yang akan selalu abadi.</p>
                     <p style="color:white;margin:10px">Masih ada satu kejutan untukmu...</p>
-                    <button class="final-btn" onclick="event.stopPropagation();openSurprise()">BUKA INI</button>
+                    <button class="final-btn" onclick="event.stopPropagation();openSurprise()">SILAHKAN CLICK</button>
                 </div>
             </div>
         </div>
@@ -438,8 +429,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                     <h2>MATAMU 💗</h2>
                     <p>"Matamu menyimpan teduh yang menenangkan, senyummu adalah alasan untuk bertahan. Rasa ini tumbuh subur, menjadikanmu rumah tempatku pulang."</p>
                     <img src="foto2.jpeg" class="page-image" alt="Foto 2">
-                    <p style="font-size:10px;color:rgb(179, 8, 99);margin:5px">UNTUK MU</p>
-                    <p>Aku bukan penyair, tapi sejak ada kamu, semua takutku punya alasan untuk jadi berani. Kalau dunia tanya kenapa aku masih di sini, jawabnya sederhana: karena rumahku ya kamu. Gak usah takut sendirian, selama aku masih bisa berdiri, aku berdiri di samping kamu.</p>
+                    <p>"Aku bukan penyair, tapi sejak ada kamu, semua takutku punya alasan untuk jadi berani. Kalau dunia tanya kenapa aku masih di sini, jawabnya sederhana: karena rumahku ya kamu. Gak usah takut sendirian, selama aku masih bisa berdiri, aku berdiri di samping kamu."</p>
                 </div>
                 <div class="page-number">8</div>
             </div>
@@ -449,7 +439,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                     <h2>TERIMA KASIH😘</h2>
                     <p>"Terima kasih sudah selalu jadi alasan kenapa hariku terasa lebih baik. Setiap hari bersamamu selalu terasa istimewa. I'm so lucky to have you."</p>
                     <img src="foto13.jpeg" class="page-image" alt="Foto 13">
-                    <p>Aku tidak berharap hubungan kita selalu berjalan sempurna. Aku hanya ingin kita tetap saling memahami, jujur, dan menjaga satu sama lain dalam keadaan apa pun. Mungkin akan ada banyak perubahan seiring waktu, tetapi semoga keinginan untuk tetap bersama tidak ikut berubah. Terima kasih sudah menjadi bagian dari hidupku.</p>
+                    <p>"Aku tidak berharap hubungan kita selalu berjalan sempurna. Aku hanya ingin kita tetap saling memahami, jujur, dan menjaga satu sama lain dalam keadaan apa pun. Mungkin akan ada banyak perubahan seiring waktu, tetapi semoga keinginan untuk tetap bersama tidak ikut berubah. Terima kasih sudah menjadi bagian dari hidupku."</p>
                 </div>
                 <div class="page-number">9</div>
             </div>
@@ -475,6 +465,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                     <h2>TENTANGMU ❤️</h2>
                     <p>"Pertemuan kita hanyalah sapaan tanpa rencana. Sebuah ketidaksengajaan yang membawa makna. Lalu waktu merajut hari dengan sederhana, hingga rasa ini tumbuh luar biasa."</p>
                     <img src="foto6.jpeg" class="page-image" alt="Foto 6">
+                    <P>"Tentangmu, Di balik senyum yang tenang menyejukkan, Ada ketulusan yang tak pernah lelah kutemukan, Bagai teduh di tengah lelahnya perjalanan, Kehadiranmu adalah rumah tempatku berpulang."</P>
                 </div>
                 <div class="page-number">7</div>
             </div>
@@ -487,10 +478,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                     <h2>SEMOGA 💕</h2>
                     <p>"Semoga langkah kita selalu sejalan dan semoga pertemuan ini tidak pernah ada akhir batas waktunya. Semoga kebersamaan ini terus berlanjut tanpa henti, seperti api abadi."</p>
                     <img src="foto12.jpeg" class="page-image" alt="Foto 12">
-                     <div class="bears-stage">
-                        <span class="bear one">🙀</span>
-                        <span class="bear two">😽</span>
-                    </div>
+                    <P>"Semoga Di senja hari yang perlahan merona, Langkah kaki menapaki sisa waktu,Semoga letih ini berbuah makna, Dan lelah hari berganti restu. Di dalam ruang sunyi penuh harap, Doa-doa terucap dalam dekap,Semoga terang datang menjemput, Menghapus duka yang sempat surut'</P>
                 </div>
                 <div class="page-number">4</div>
             </div>
@@ -515,9 +503,9 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                 <svg class="gold-heart-svg" viewBox="0 0 24 24">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
-                <h1>B & N</h1>
+                <h1> ℬ & 𝔑 </h1>
                 <h5>kamis 22-10-2026</h5>
-                <h5>kisah dan cerita kita bermula</h5>
+                <h5>AWAL CERITA </h5>
                 <span style="margin-top:30px;font-size:10px">click untuk membuka!!</span>
             </div>
 
@@ -526,10 +514,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
                     <h2>AWAL DARI KISAH KITA &gt;_&lt;</h2>
                     <p>"Pertemuan pertama yang perlahan singgah, membawa senyum dan cerita yang indah. Semoga waktu terus membawa kita melangkah, menemukan arti baru dalam tiap kisah."</p>
                     <img src="sampul1.jpeg" class="page-image" alt="Sampul">
-                    <div class="bears-stage">
-                        <span class="bear one">🐼</span>
-                        <span class="bear two">🐨</span>
-                    </div>
+                    <P>"Sapaan yang Mengubah Semesta, Di antara keramaian yang memecah sunyi, Wajahmu hadir tanpa kusadari, Senyum tersungging mengunci hari, Membuat detak waktu terasa berdiri. Semoga kau pun merasakan hal yang sama, Saat pertama kali kita bersua, Ada rasa hangat yang menyapa,Mengalir lembut tanpa kata-kata."</P>
                 </div>
                 <div class="page-number">3</div>
             </div>
@@ -541,13 +526,6 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
     buka kejutan di sampul penutup ‼→
     <br>
     Tinggalkan pesan dan kesan mu, paling bawah ✍️👇
-</div>
-
-<!-- TOMBOL GALERI -->
-<div class="section-btn">
-    <button class="gallery-btn" onclick="document.getElementById('gallerySection').scrollIntoView({behavior:'smooth'})">
-        GALERI FOTO
-    </button>
 </div>
 
 <!-- GALERI KENANGAN -->
@@ -571,7 +549,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
 
 <!-- BUKU TAMU PUBLIK -->
 <div class="comments-wrapper">
-    <div class="comments-title">TINGGAL PESAN DAN KESANMU</div>
+    <div class="comments-title">TINGGALKAN PESAN DAN KESANMU DISINI</div>
     <form class="comment-form" onsubmit="addPublicComment(event)">
         <input type="text" id="commentAuthor" class="comment-input" placeholder="From (Nama)..." maxlength="50" required>
         <textarea id="commentContent" class="comment-textarea" placeholder="Isi Pesan / Ucapan..." maxlength="500" required></textarea>
@@ -645,7 +623,7 @@ function handleFirstBookClick() {
 window.addEventListener('pointerdown', function(e) {
     const particle = document.createElement('div');
     particle.className = 'touch-particle';
-    const symbols = ['💖','✨','❤️','🌸','💕'];
+    const symbols = ['💘','✨','🍁','🌸','💕'];
     particle.innerText = symbols[Math.floor(Math.random()*symbols.length)];
     particle.style.left = e.clientX + 'px';
     particle.style.top = e.clientY + 'px';
@@ -743,7 +721,7 @@ setInterval(updateTimer, 1000);
 function createHeart() {
     const heart = document.createElement('div');
     heart.className = 'heart-particle';
-    const symbols = ['💖','❤️','💕','✨','🌸','💘'];
+    const symbols = ['💖','🍁','💕','✨','🌸','💘'];
     heart.innerText = symbols[Math.floor(Math.random()*symbols.length)];
     heart.style.left = Math.random() * 95 + 'vw';
     heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
