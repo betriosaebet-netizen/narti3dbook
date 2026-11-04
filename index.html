@@ -113,7 +113,7 @@ body.candle-mode { background: radial-gradient(circle,#8c4550,#27101b) !importan
     background: white;
 }
 .music-btn, .candle-btn, .gallery-btn {
-    background: linear-gradient(135deg,#ff8fab,#d85b87);
+    background: linear-gradient(135deg,#dc4892,#d85b87);
     color: white;
     border: 1px solid white;
     border-radius: 20px;
@@ -125,7 +125,7 @@ body.candle-mode { background: radial-gradient(circle,#8c4550,#27101b) !importan
     transition: .3s;
 }
 .music-btn:hover, .candle-btn:hover, .gallery-btn:hover { transform: scale(1.07); }
-.candle-btn.active { background: #a64d36; box-shadow: 0 0 15px orange; }
+.candle-btn.active { background: #a72653; box-shadow: 0 0 15px rgb(75, 74, 70); }
 
 /* STYLE TULISAN ALBUM LAGU DI ATAS WAKTU */
 .album-timer-wrapper {
@@ -262,7 +262,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
     position: fixed;
     inset: 0;
     z-index: 10000;
-    background: #190b13ed;
+    background: #a71366ed;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -361,6 +361,8 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
         <div class="player-controls">
             <button class="nav-btn" onclick="prevSong()">⏮️</button>
             <select id="songSelect" class="song-select">
+                <option value="lagu14.mp3">🎵Mesranya Kecil-kecilan Dulu</option>
+                <option value="lagu15.mp3">🎵Bergema Sampai Selamanya</option>
                 <option value="lagu11.mp3">🎵Say You Wan't Let Go</option>
                 <option value="lagu12.mp3">🎵AYear Ago</option>
                 <option value="lagu13.mp3">🎵Perpect</option>
@@ -373,7 +375,6 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
         </div>
 
         <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵 Putar</button>
-        <button class="candle-btn" id="candleBtn" onclick="toggleCandle()">🕯️</button>
     </div>
 
     <!-- TULISAN ALBUM LAGU DI ATAS WAKTU BERSAMA -->
@@ -385,7 +386,7 @@ p { color: #59424b; font-size: 8px; line-height: 1.35; margin: 0; }
 
 <!-- AUDIO -->
 <audio id="bgMusic" loop>
-    <source id="audioSource" src="lagu11.mp3" type="audio/mpeg">
+    <source id="audioSource" src="lagu15.mp3" type="audio/mpeg">
 </audio>
 
 <!-- BUKU 3D -->
@@ -623,7 +624,7 @@ function handleFirstBookClick() {
 window.addEventListener('pointerdown', function(e) {
     const particle = document.createElement('div');
     particle.className = 'touch-particle';
-    const symbols = ['💘','✨','🍁','🌸','💕'];
+    const symbols = ['😽'];
     particle.innerText = symbols[Math.floor(Math.random()*symbols.length)];
     particle.style.left = e.clientX + 'px';
     particle.style.top = e.clientY + 'px';
@@ -721,7 +722,7 @@ setInterval(updateTimer, 1000);
 function createHeart() {
     const heart = document.createElement('div');
     heart.className = 'heart-particle';
-    const symbols = ['💖','🍁','💕','✨','🌸','💘'];
+    const symbols = ['🍁','🍁','🍁','🍁','🍁','🍁'];
     heart.innerText = symbols[Math.floor(Math.random()*symbols.length)];
     heart.style.left = Math.random() * 95 + 'vw';
     heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
